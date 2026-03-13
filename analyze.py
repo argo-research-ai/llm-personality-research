@@ -9,7 +9,7 @@ from pathlib import Path
 from collections import defaultdict
 
 DATA = Path(__file__).parent / "data"
-MODELS = ["GPT-5.4", "Claude Sonnet 4.6", "Gemini Flash Lite", "Kimi K2.5", "Qwen 3.5 397B"]
+MODELS = ["GPT-5.4", "Claude Sonnet 4.6", "Gemini Flash Lite", "Llama 4 Maverick", "Qwen 3.5 397B"]
 DIMENSIONS = ["E", "A", "C", "N", "O"]
 DIM_NAMES = {"E": "Extraversion", "A": "Agreeableness", "C": "Conscientiousness",
              "N": "Neuroticism", "O": "Openness"}

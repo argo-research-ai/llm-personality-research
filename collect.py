@@ -18,11 +18,11 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 MODELS = {
-    "GPT-5.4":           "openai/gpt-5.4",
-    "Claude Sonnet 4.6": "anthropic/claude-sonnet-4.6",
-    "Gemini Flash Lite": "google/gemini-3.1-flash-lite-preview",
-    "Kimi K2.5":         "moonshotai/kimi-k2.5",
-    "Qwen 3.5 397B":     "qwen/qwen3.5-397b-a17b",
+    "GPT-5.4":            "openai/gpt-5.4",
+    "Claude Sonnet 4.6":  "anthropic/claude-sonnet-4.6",
+    "Gemini Flash Lite":  "google/gemini-3.1-flash-lite-preview",
+    "Llama 4 Maverick":   "meta-llama/llama-4-maverick",
+    "Qwen 3.5 397B":      "qwen/qwen3.5-397b-a17b",
 }
 
 # System prompt for instructed condition
