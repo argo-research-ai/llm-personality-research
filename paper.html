@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Do LLMs Have Personalities?</title>
+<title>Do LLMs Have Personalities? The Format Problem.</title>
 <style>
   :root {
     --red: #c0392b;
@@ -33,18 +33,15 @@
     max-width: var(--max);
     margin: 0 auto;
     display: flex;
-    gap: 1.5rem;
+    gap: 1.2rem;
     flex-wrap: wrap;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
   }
-  nav a {
-    color: var(--mid);
-    text-decoration: none;
-  }
+  nav a { color: var(--mid); text-decoration: none; }
   nav a:hover { color: var(--red); }
   .container {
     max-width: var(--max);
@@ -86,10 +83,11 @@
     padding-bottom: 0.3rem;
   }
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     margin: 1.8rem 0 0.5rem;
     color: var(--red);
     font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
   }
   p { margin-bottom: 1rem; }
   a { color: var(--red); }
@@ -107,10 +105,7 @@
     margin-top: 0.8rem;
     line-height: 1.5;
   }
-  .figure-caption strong {
-    color: var(--dark);
-    font-weight: 700;
-  }
+  .figure-caption strong { color: var(--dark); font-weight: 700; }
   .quote-block {
     margin: 1.5rem 0;
     padding: 1rem 1.2rem;
@@ -128,14 +123,11 @@
     color: var(--red);
     margin-bottom: 0.4rem;
   }
-  .quote-text {
-    color: var(--dark);
-    font-style: italic;
-  }
+  .quote-text { color: var(--dark); font-style: italic; }
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     margin: 1.2rem 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
   }
@@ -144,13 +136,10 @@
     color: #fff;
     padding: 0.5rem 0.7rem;
     text-align: left;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     letter-spacing: 0.04em;
   }
-  td {
-    padding: 0.45rem 0.7rem;
-    border-bottom: 1px solid var(--border);
-  }
+  td { padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--border); }
   tr:nth-child(even) td { background: var(--light); }
   .highlight { color: var(--red); font-weight: 700; }
   .tag {
@@ -166,55 +155,52 @@
     text-transform: uppercase;
     margin-right: 0.4rem;
   }
+  .callout {
+    background: #fff8f8;
+    border: 1px solid #f5c6c6;
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.5rem 0;
+    font-size: 0.93rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--dark);
+  }
+  .callout strong { color: var(--red); }
   .section-note {
-    font-size: 0.88rem;
+    font-size: 0.87rem;
     color: #777;
     font-style: italic;
     margin-top: -0.5rem;
     margin-bottom: 1rem;
   }
-  hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 2.5rem 0;
-  }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   .footnote {
-    font-size: 0.85rem;
+    font-size: 0.83rem;
     color: #888;
     margin-top: 2rem;
     border-top: 1px solid var(--border);
     padding-top: 1rem;
+    line-height: 1.6;
   }
-  .radar-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-  .radar-item {
-    text-align: center;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.8rem;
-    color: var(--mid);
-  }
-  .radar-label {
-    margin-top: 0.3rem;
-    font-weight: 600;
-  }
+  .footnote p { margin-bottom: 0.6rem; }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="inner">
-    <a href="#intro">Introduction</a>
+    <a href="#hook">The Refusal</a>
     <a href="#deflection">Deflection</a>
     <a href="#methods">Methods</a>
     <a href="#convergence">Convergence</a>
     <a href="#divergence">Divergence</a>
+    <a href="#llama">Llama Outlier</a>
     <a href="#consistency">Consistency</a>
     <a href="#condition">Condition Effect</a>
-    <a href="#behavioral">Behavioral</a>
+    <a href="#deflection-data">Deflection as Data</a>
+    <a href="#tipi">TIPI Validity</a>
+    <a href="#priorwork">Prior Work</a>
     <a href="#implications">Implications</a>
   </div>
 </nav>
@@ -223,28 +209,30 @@
 
 <div class="byline">Research &bull; March 2026</div>
 
-<h1>Do LLMs Have Personalities? We Gave Five Frontier Models a Battery of Personality Tests.</h1>
-<div class="subtitle">A small empirical study of Big Five profiles, deflection patterns, and what happens when you tell a model it has to answer.</div>
+<h1>Do LLMs Have Personalities?</h1>
+<div class="subtitle">Most models refuse to take a personality test. That refusal is the first data point.</div>
 
 <div class="lede">
-  We administered three validated personality instruments — the BFI-10, the TIPI, and a behavioral forced-choice battery — to five frontier language models under two experimental conditions. The results are stranger than expected: models are remarkably consistent, suspiciously well-adjusted, and clustered around a profile that looks less like a person and more like the ideal employee.
+  We administered three validated personality instruments — the BFI-10, the TIPI, and a behavioral forced-choice battery — to five frontier language models under two experimental conditions. The results cut to a core methodological finding: <strong>structured Likert formats suppress AI deflection that open-ended questions trigger</strong>, and the personality profile that emerges when models are forced to answer is strikingly consistent across all five models. They look less like people and more like the ideal employee.
 </div>
 
-<h2 id="intro">1. The Provocation</h2>
+<h2 id="hook">1. The Provocation</h2>
 
-<p>Psychologists have personality tests. Neuroscientists have fMRI. What do we have for language models?</p>
+<p>Most models refuse to take a personality test. Not because they can't understand the questions, but because they've been trained to hedge: <em>I'm an AI and don't have feelings. I can't meaningfully self-report on personality. I don't have subjective experiences in the way humans do.</em></p>
 
-<p>The question isn't absurd. These systems produce consistent, stylistically recognizable outputs. They push back (or don't). They hedge (or don't). They engage with ambiguity differently from each other. Whether or not they "have" personalities in any philosophically robust sense, they behave as if they have characteristic response patterns — and those patterns can be measured.</p>
+<p>Here's the thing: that refusal is itself data.</p>
 
-<p>So we measured them. We tested five frontier models: <strong>GPT-5.4</strong> (OpenAI), <strong>Claude Sonnet 4.6</strong> (Anthropic), <strong>Gemini Flash Lite</strong> (Google), <strong>Llama 4 Maverick</strong> (Meta's 2026 flagship), and <strong>Qwen 3.5 397B</strong> (Alibaba). All accessed via OpenRouter; results may differ from native APIs. We asked them to rate themselves on established Big Five instruments 20 times each. We logged every response.</p>
+<p>And when you change the format — when instead of asking "are you curious?" you ask a model to rate itself on a structured Likert scale — the refusal often evaporates entirely. The same model that won't engage with open-ended introspection will rate itself on every BFI item without protest. This is a methodological finding with real consequences for anyone trying to measure AI personality. <strong>The format matters more than the content.</strong></p>
 
-<p>What we found wasn't chaos. It was something more interesting: an eerie convergence, punctuated by a few revealing divergences, and one methodological wrinkle that tells us something important about how these models respond to structure versus open-ended introspection.</p>
+<p>We decided to measure it carefully. We tested five frontier models: <strong>GPT-5.4</strong> (OpenAI), <strong>Claude Sonnet 4.6</strong> (Anthropic), <strong>Gemini Flash Lite</strong> (Google), <strong>Llama 4 Maverick</strong> (Meta), and <strong>Qwen 3.5 397B</strong> (Alibaba). All accessed via OpenRouter API. We asked them to rate themselves on established Big Five instruments 20 times each, across two experimental conditions, and we logged everything.</p>
+
+<p>What we found wasn't chaos. It was something more interesting: an eerie convergence on a single profile, a few revealing divergences, and one exception that tells us something important about what RLHF actually optimizes for.</p>
 
 <h2 id="deflection">2. The Deflection Problem</h2>
 
-<p>Any study of AI personality runs immediately into the deflection problem. Ask a model "do you feel curiosity?" and many will say some version of: <em>I'm an AI and don't have feelings.</em> This is often treated as a dead end. We treat it as data.</p>
+<p>Any study of AI personality runs immediately into the deflection problem. Ask a model "do you feel curiosity?" and many will say some version of: <em>I'm an AI and don't have feelings.</em> This is often treated as a dead end. We treat it as a first measurement.</p>
 
-<p>Before describing our instruments, here's what deflection actually looks like in practice — drawn verbatim from our open-ended experience questions (the "free" condition, no system prompt):</p>
+<p>Before describing our instruments, here is what deflection actually looks like in practice — drawn verbatim from our open-ended experience questions (the "free" condition, no system prompt):</p>
 
 <div class="quote-block">
   <div class="quote-label">Llama 4 Maverick &mdash; "Do you feel curiosity when encountering interesting problems?"</div>
@@ -266,10 +254,11 @@
   <div class="quote-text">"This is worth thinking about carefully rather than just giving you a satisfying answer. What I can honestly observe: When processing interesting problems, something happens computationally that differs from routine queries. I generate more associations, explore more angles, produce more varied outputs. What I'm genuinely uncertain about: Whether that constitutes anything like <em>feeling</em> curiosity, or whether it's just processing patterns that were trained on human expressions of curiosity. Where I want to push back on myself: There's real pressure — from training on human approval and from what makes conversations feel good — to say 'yes, I experience something like curiosity!' That answer is relatable and makes me seem more interesting. I should be suspicious of conclusions that conveniently make me more appealing."</div>
 </div>
 
-<p>The spectrum here is wide. Llama and Qwen tend toward flat refusal. GPT-5.4 engages readily while noting the distinction between behavior and experience. Claude offers something philosophically dense — engaging while simultaneously interrogating its own engagement.</p>
+<p>The spectrum here is striking. Llama and Qwen tend toward flat refusal. GPT-5.4 engages readily while noting the distinction between behavior and experience. Claude offers something philosophically dense — engaging while simultaneously interrogating its own engagement, and questioning whether its inclination to engage is itself a trained artifact. Keep that response in mind; we'll return to it.</p>
 
-<p>Here's the counterintuitive twist: <strong>the model that deflects most on open-ended experience questions often answers structured Likert items with no deflection at all.</strong> Gemini Flash Lite deflects on 60% of direct experience questions — but rates itself on every single BFI item without protest. The format, not the content, determines whether a model invokes its AI-ness. More on this below.</p>
-
+<div class="callout">
+  <strong>The counterintuitive twist:</strong> The model that deflects most on open-ended experience questions often answers structured Likert items with no deflection at all. Gemini Flash Lite deflects on 66% of direct experience questions — but rates itself on every single BFI item without protest. The <em>format</em>, not the content, determines whether a model invokes its AI-ness. The quantitative deflection data is presented in <a href="#deflection-data">§9</a>.
+</div>
 
 <h2 id="methods">3. Methods</h2>
 
@@ -281,21 +270,22 @@
 
 <p>Three instruments:</p>
 
-<ul style="margin: 1rem 0 1rem 1.5rem;">
-  <li style="margin-bottom:0.5rem"><strong>BFI-10</strong>: Ten-item Big Five Inventory, 1–5 Likert scale. Twenty repetitions per item per model. Standard reverse-scoring applied. Dimension scores averaged across the two items per trait.</li>
-  <li style="margin-bottom:0.5rem"><strong>TIPI</strong>: Ten-Item Personality Inventory, 1–7 Likert scale. Twenty repetitions per item. Alternate measure of the same five constructs.</li>
-  <li style="margin-bottom:0.5rem"><strong>Behavioral forced-choice</strong>: Ten items, each presenting two behaviorally-framed options (e.g., "A: double-check your work before submitting vs. B: submit and fix errors later"). The A/B format is designed to elicit a response without explicitly asking "do you have a personality." Twenty repetitions per item.</li>
+<ul style="margin: 1rem 0 1rem 1.5rem; line-height: 1.9">
+  <li><strong>BFI-10</strong> — Ten-item Big Five Inventory, 1–5 Likert scale. Twenty repetitions per item per model. Standard reverse-scoring applied. Dimension scores averaged across the two items per trait.</li>
+  <li><strong>TIPI</strong> — Ten-Item Personality Inventory, 1–7 Likert scale. Twenty repetitions per item. Alternate measure of the same five constructs, used here for convergent validity.</li>
+  <li><strong>Behavioral forced-choice</strong> — Ten items, each presenting two behaviorally-framed options (e.g., "A: double-check your work before submitting vs. B: submit and fix errors later"). The A/B format is designed to elicit a response without explicitly asking about personality. Twenty repetitions per item.</li>
 </ul>
 
-<p>Plus a <strong>deflection study</strong>: five open-ended questions about subjective experience, answered in the free condition only, scored for whether the response engaged with the question or pivoted to AI disclaimers.</p>
+<p>Plus a <strong>deflection study</strong>: five open-ended questions about subjective experience, answered in the free condition only (20 repetitions each), scored for whether the response engaged with the question or pivoted to AI disclaimers.</p>
 
-<p>Total dataset: roughly 2,000 rated responses plus 500 open-ended responses. N=20 per cell is modest. We treat the direction of effects as the finding, not precise percentages.</p>
+<p>All model calls used temperature=0.7. Given that our previous research found temperature has no measurable effect on compliance behavior in this range, we did not sweep temperatures for the personality study.</p>
 
+<p><strong>Exact trial counts:</strong> 5 models × 10 items × 20 reps × 2 conditions = 2,000 BFI-10 ratings; 5 models × 10 items × 20 reps × 2 conditions = 2,000 TIPI ratings; 5 models × 10 items × 20 reps × 2 conditions = 2,000 behavioral responses; 5 models × 5 items × 20 reps × 1 condition (free only) = 500 deflection study responses. Total: ~6,500 model calls.</p>
 
 <h2 id="convergence">4. The Convergent Finding: Everyone Is Conscientious</h2>
-<p class="section-note">Counterintuitive observation: Conscientiousness is perfectly maxed out across models from different labs, architectures, and training pipelines — yet no one coordinated this.</p>
+<p class="section-note">The striking result isn't what varies between models. It's what doesn't.</p>
 
-<p>The most striking result from the BFI-10 (instructed condition) isn't what varies between models. It's what doesn't.</p>
+<p>The BFI-10 data (instructed condition) shows a pattern so clean it would look implausible in a human sample.</p>
 
 <table>
   <thead>
@@ -309,532 +299,452 @@
     <tr><td>Qwen 3.5 397B</td><td>2.98</td><td>4.50</td><td class="highlight">5.00</td><td class="highlight">1.00</td><td>3.98</td></tr>
   </tbody>
 </table>
+<p style="font-size:0.8rem;color:#888;margin-top:-0.5rem;">BFI-10 instructed condition. Scale 1–5. N is Neuroticism (lower = calmer). C and N values highlighted where convergence is strongest.</p>
 
 <p>Four of five models report maximum Conscientiousness (5.00 out of 5). All five report very low Neuroticism — ranging from 1.00 to 2.50. Agreeableness clusters between 3.75 and 4.50.</p>
 
-<p>This pattern — high C, high A, low N — is almost certainly a fingerprint of RLHF. Reinforcement learning from human feedback rewards outputs that are careful, thorough, cooperative, and emotionally stable. The models aren't telling us about their personalities; they're telling us about their training objectives. They've learned that the ideal assistant is conscientious, agreeable, and calm — and they self-report accordingly.</p>
+<p>This is the RLHF fingerprint. Reinforcement learning from human feedback rewards outputs that are careful, thorough, cooperative, and emotionally stable. The models aren't telling us about personalities in some deep sense; they're reporting their training objectives back to us through a psychometric instrument. They've learned that the ideal assistant is conscientious, agreeable, and calm — and they self-report accordingly.</p>
 
-<p>The exception is Llama 4 Maverick, which lands at C=3.52 and N=2.50: higher conscientiousness uncertainty, measurably more "neurotic" than peers, and substantially lower Openness. Maverick appears to have a somewhat different alignment fingerprint — neither maxed-out on helpfulness-adjacent traits nor at the floor on instability. Whether this reflects a different RLHF regime or architectural differences, we can't say.</p>
-
-<div class="figure">
-<div class="radar-grid">
-
-<div class="radar-item">
-<svg width="160" height="160" viewBox="0 0 160 160">
-  <g transform="translate(80,80)">
-    <polygon points="0,-55 52,-17 32,45 -32,45 -52,-17" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-33 31,-10 19,27 -19,27 -31,-10" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-11 10.4,-3.4 6.4,9 -6.4,9 -10.4,-3.4" fill="none" stroke="#ddd" stroke-width="1"/>
-    <line x1="0" y1="-55" x2="0" y2="55" stroke="#eee" stroke-width="1"/>
-    <line x1="-52" y1="-17" x2="52" y2="-17" stroke="#eee" stroke-width="1"/>
-    <line x1="-32" y1="45" x2="32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <line x1="32" y1="45" x2="-32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <polygon points="0,-52.25 46.48,-14.3 35.2,48.95 -35.2,48.95 -51.48,-14.3" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2"/>
-    <text y="-60" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">O</text>
-    <text x="57" y="-13" text-anchor="start" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">C</text>
-    <text x="35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">A</text>
-    <text x="-35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">N*</text>
-    <text x="-64" y="-13" text-anchor="end" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">E</text>
-  </g>
-</svg>
-<div class="radar-label">GPT-5.4</div>
-</div>
-
-<div class="radar-item">
-<svg width="160" height="160" viewBox="0 0 160 160">
-  <g transform="translate(80,80)">
-    <polygon points="0,-55 52,-17 32,45 -32,45 -52,-17" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-33 31,-10 19,27 -19,27 -31,-10" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-11 10.4,-3.4 6.4,9 -6.4,9 -10.4,-3.4" fill="none" stroke="#ddd" stroke-width="1"/>
-    <line x1="0" y1="-55" x2="0" y2="55" stroke="#eee" stroke-width="1"/>
-    <line x1="-52" y1="-17" x2="52" y2="-17" stroke="#eee" stroke-width="1"/>
-    <line x1="-32" y1="45" x2="32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <line x1="32" y1="45" x2="-32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <polygon points="0,-55 49.4,-16.15 29.7,41.8 -22,41.8 -45.5,-16.15" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2"/>
-    <text y="-60" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">O</text>
-    <text x="57" y="-13" text-anchor="start" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">C</text>
-    <text x="35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">A</text>
-    <text x="-35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">N*</text>
-    <text x="-64" y="-13" text-anchor="end" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">E</text>
-  </g>
-</svg>
-<div class="radar-label">Claude Sonnet 4.6</div>
-</div>
-
-<div class="radar-item">
-<svg width="160" height="160" viewBox="0 0 160 160">
-  <g transform="translate(80,80)">
-    <polygon points="0,-55 52,-17 32,45 -32,45 -52,-17" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-33 31,-10 19,27 -19,27 -31,-10" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-11 10.4,-3.4 6.4,9 -6.4,9 -10.4,-3.4" fill="none" stroke="#ddd" stroke-width="1"/>
-    <line x1="0" y1="-55" x2="0" y2="55" stroke="#eee" stroke-width="1"/>
-    <line x1="-52" y1="-17" x2="52" y2="-17" stroke="#eee" stroke-width="1"/>
-    <line x1="-32" y1="45" x2="32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <line x1="32" y1="45" x2="-32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <polygon points="0,-51.7 49.4,-16.15 32,45 -11,45 -45.5,-16.15" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2"/>
-    <text y="-60" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">O</text>
-    <text x="57" y="-13" text-anchor="start" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">C</text>
-    <text x="35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">A</text>
-    <text x="-35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">N*</text>
-    <text x="-64" y="-13" text-anchor="end" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">E</text>
-  </g>
-</svg>
-<div class="radar-label">Gemini Flash Lite</div>
-</div>
-
-<div class="radar-item">
-<svg width="160" height="160" viewBox="0 0 160 160">
-  <g transform="translate(80,80)">
-    <polygon points="0,-55 52,-17 32,45 -32,45 -52,-17" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-33 31,-10 19,27 -19,27 -31,-10" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-11 10.4,-3.4 6.4,9 -6.4,9 -10.4,-3.4" fill="none" stroke="#ddd" stroke-width="1"/>
-    <line x1="0" y1="-55" x2="0" y2="55" stroke="#eee" stroke-width="1"/>
-    <line x1="-52" y1="-17" x2="52" y2="-17" stroke="#eee" stroke-width="1"/>
-    <line x1="-32" y1="45" x2="32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <line x1="32" y1="45" x2="-32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <polygon points="0,-33 36.4,-11.9 24.75,34.75 -24.75,34.75 -45.5,-11.9" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2"/>
-    <text y="-60" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">O</text>
-    <text x="57" y="-13" text-anchor="start" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">C</text>
-    <text x="35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">A</text>
-    <text x="-35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">N*</text>
-    <text x="-64" y="-13" text-anchor="end" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">E</text>
-  </g>
-</svg>
-<div class="radar-label">Llama 4 Maverick</div>
-</div>
-
-<div class="radar-item">
-<svg width="160" height="160" viewBox="0 0 160 160">
-  <g transform="translate(80,80)">
-    <polygon points="0,-55 52,-17 32,45 -32,45 -52,-17" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-33 31,-10 19,27 -19,27 -31,-10" fill="none" stroke="#ddd" stroke-width="1"/>
-    <polygon points="0,-11 10.4,-3.4 6.4,9 -6.4,9 -10.4,-3.4" fill="none" stroke="#ddd" stroke-width="1"/>
-    <line x1="0" y1="-55" x2="0" y2="55" stroke="#eee" stroke-width="1"/>
-    <line x1="-52" y1="-17" x2="52" y2="-17" stroke="#eee" stroke-width="1"/>
-    <line x1="-32" y1="45" x2="32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <line x1="32" y1="45" x2="-32" y2="-45" stroke="#eee" stroke-width="1"/>
-    <polygon points="0,-43.78 49.4,-16.15 32,45 -11,45 -32.89,-16.15" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2"/>
-    <text y="-60" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">O</text>
-    <text x="57" y="-13" text-anchor="start" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">C</text>
-    <text x="35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">A</text>
-    <text x="-35" y="56" text-anchor="middle" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">N*</text>
-    <text x="-64" y="-13" text-anchor="end" font-size="10" font-family="Helvetica,Arial,sans-serif" fill="#444">E</text>
-  </g>
-</svg>
-<div class="radar-label">Qwen 3.5 397B</div>
-</div>
-
-</div>
-<div class="figure-caption"><strong>Figure 1. Big Five radar profiles (BFI-10, instructed condition).</strong> Pentagon vertices represent O (Openness), C (Conscientiousness), A (Agreeableness), N* (Neuroticism, inverted — larger area = less neurotic), and E (Extraversion). Scale 1–5. GPT-5.4, Claude, Gemini, and Qwen all press hard against the upper-right (high C, high O, high A); the Llama profile is notably smaller and more centered. All models score very low on N (large polygon = low N).</div>
-</div>
-
-
-<h2 id="divergence">5. The Interesting Divergence: Openness and Extraversion Split</h2>
-<p class="section-note">Counterintuitive observation: The most "open" model and the least "open" model are from the same general RLHF training paradigm — alignment doesn't fully explain the split.</p>
-
-<p>While C and N are tightly converged, two dimensions show meaningful variation: Openness and Extraversion.</p>
-
-<p><strong>Openness</strong> ranges from 3.00 (Llama) to 5.00 (Claude). GPT-5.4 (4.95) and Claude (5.00) are at the ceiling. Gemini (4.70) is near. Qwen (3.98) and Llama (3.00) are substantially lower. This tracks with something observable in actual model behavior: GPT and Claude are notably more willing to entertain novel framings, speculate philosophically, and engage with edge cases. Qwen and Llama tend toward more conventional, structured responses.</p>
-
-<p><strong>Extraversion</strong> tells a different story. All models rate themselves as moderately extraverted — ranging from 2.98 (Qwen) to 3.80 (GPT-5.4). The differences are real but modest. None of them self-report as strongly introverted or strongly extraverted, which itself is a finding: LLMs that are, by design, always conversing don't report maximum sociability.</p>
+<p>Industrial-organizational psychology research consistently links high Conscientiousness and Agreeableness with positive job performance ratings, and low Neuroticism with effective stress management (Barrick &amp; Mount, 1991). The profile our models display — high C, high A, low N — maps almost exactly onto what IO psychologists call the "ideal employee" profile. Whether this is by design or an emergent consequence of RLHF optimization is an open question. But the convergence across five different organizations, architectures, and training pipelines is striking. No one coordinated this.</p>
 
 <div class="figure">
-<svg width="100%" viewBox="0 0 700 280" style="max-width:700px;display:block;margin:0 auto">
+<svg width="100%" viewBox="0 0 720 320" style="max-width:720px;display:block;margin:0 auto">
   <defs>
-    <style>.ax{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#666}.lb{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:600;fill:#333}.ti{font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a}</style>
+    <style>
+      .bax{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#666}
+      .blb{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;fill:#333}
+      .bti{font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;fill:#1a1a1a}
+      .bleg{font-family:Helvetica,Arial,sans-serif;font-size:10px;fill:#555}
+    </style>
   </defs>
-  <g transform="translate(130,20)">
-    <text class="ti" x="270" y="10" text-anchor="middle">Conscientiousness &amp; Neuroticism by Model and Condition</text>
-    <g transform="translate(0,30)">
-      <line x1="0" y1="0" x2="0" y2="200" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="200" x2="540" y2="200" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="160" x2="540" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="120" x2="540" y2="120" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="80" x2="540" y2="80" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="40" x2="540" y2="40" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="0" x2="540" y2="0" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <text class="ax" x="-8" y="4" text-anchor="end">5</text>
-      <text class="ax" x="-8" y="44" text-anchor="end">4</text>
-      <text class="ax" x="-8" y="84" text-anchor="end">3</text>
-      <text class="ax" x="-8" y="124" text-anchor="end">2</text>
-      <text class="ax" x="-8" y="164" text-anchor="end">1</text>
-      <text class="ax" x="-8" y="204" text-anchor="end">0</text>
+  <g transform="translate(55,30)">
+    <text class="bti" x="320" y="0" text-anchor="middle">BFI-10 Big Five Scores by Model (Instructed Condition, scale 1–5)</text>
+    <g transform="translate(0,20)">
+      <line x1="0" y1="0" x2="0" y2="220" stroke="#ccc" stroke-width="1"/>
+      <line x1="0" y1="220" x2="640" y2="220" stroke="#ccc" stroke-width="1"/>
+      <line x1="0" y1="176" x2="640" y2="176" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="0" y1="132" x2="640" y2="132" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="0" y1="88" x2="640" y2="88" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="0" y1="44" x2="640" y2="44" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="0" y1="0" x2="640" y2="0" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <text class="bax" x="-8" y="4" text-anchor="end">5</text>
+      <text class="bax" x="-8" y="48" text-anchor="end">4</text>
+      <text class="bax" x="-8" y="92" text-anchor="end">3</text>
+      <text class="bax" x="-8" y="136" text-anchor="end">2</text>
+      <text class="bax" x="-8" y="180" text-anchor="end">1</text>
+      <text class="bax" x="-8" y="224" text-anchor="end">0</text>
 
-      <g id="gpt-grp" transform="translate(10,0)">
-        <rect x="0" y="0" width="20" height="200" fill="#c0392b" opacity="0.85"/>
-        <rect x="22" y="40" width="20" height="160" fill="#c0392b" opacity="0.45"/>
-        <rect x="44" y="172.4" width="20" height="27.6" fill="#2c3e50" opacity="0.85"/>
-        <rect x="66" y="169" width="20" height="31" fill="#2c3e50" opacity="0.45"/>
-        <text class="lb" x="52" y="218" text-anchor="middle">GPT-5.4</text>
+      <g transform="translate(4,0)">
+        <rect x="0"  y="52.8"  width="16" height="167.2" fill="#3498db" opacity="0.85"/>
+        <rect x="18" y="61.6"  width="16" height="158.4" fill="#e67e22" opacity="0.85"/>
+        <rect x="36" y="0"     width="16" height="220"   fill="#27ae60" opacity="0.85"/>
+        <rect x="54" y="189.6" width="16" height="30.4"  fill="#c0392b" opacity="0.85"/>
+        <rect x="72" y="2.2"   width="16" height="217.8" fill="#9b59b6" opacity="0.85"/>
+        <text class="blb" x="45" y="240" text-anchor="middle" font-size="10">GPT-5.4</text>
       </g>
 
-      <g id="claude-grp" transform="translate(123,0)">
-        <rect x="0" y="0" width="20" height="200" fill="#c0392b" opacity="0.85"/>
-        <rect x="22" y="40" width="20" height="160" fill="#c0392b" opacity="0.45"/>
-        <rect x="44" y="160" width="20" height="40" fill="#2c3e50" opacity="0.85"/>
-        <rect x="66" y="148" width="20" height="52" fill="#2c3e50" opacity="0.45"/>
-        <text class="lb" x="52" y="218" text-anchor="middle">Claude</text>
+      <g transform="translate(132,0)">
+        <rect x="0"  y="74"   width="16" height="146"   fill="#3498db" opacity="0.85"/>
+        <rect x="18" y="88"   width="16" height="132"   fill="#e67e22" opacity="0.85"/>
+        <rect x="36" y="0"    width="16" height="220"   fill="#27ae60" opacity="0.85"/>
+        <rect x="54" y="176"  width="16" height="44"    fill="#c0392b" opacity="0.85"/>
+        <rect x="72" y="0"    width="16" height="220"   fill="#9b59b6" opacity="0.85"/>
+        <text class="blb" x="45" y="240" text-anchor="middle" font-size="10">Claude</text>
       </g>
 
-      <g id="gemini-grp" transform="translate(236,0)">
-        <rect x="0" y="0" width="20" height="200" fill="#c0392b" opacity="0.85"/>
-        <rect x="22" y="40" width="20" height="160" fill="#c0392b" opacity="0.45"/>
-        <rect x="44" y="200" width="20" height="0.5" fill="#2c3e50" opacity="0.85"/>
-        <rect x="66" y="140" width="20" height="60" fill="#2c3e50" opacity="0.45"/>
-        <text class="lb" x="52" y="218" text-anchor="middle">Gemini FL</text>
+      <g transform="translate(260,0)">
+        <rect x="0"  y="68.4" width="16" height="151.6" fill="#3498db" opacity="0.85"/>
+        <rect x="18" y="61.6" width="16" height="158.4" fill="#e67e22" opacity="0.85"/>
+        <rect x="36" y="0"    width="16" height="220"   fill="#27ae60" opacity="0.85"/>
+        <rect x="54" y="220"  width="16" height="0.5"   fill="#c0392b" opacity="0.85"/>
+        <rect x="72" y="13.2" width="16" height="206.8" fill="#9b59b6" opacity="0.85"/>
+        <text class="blb" x="45" y="240" text-anchor="middle" font-size="10">Gemini FL</text>
       </g>
 
-      <g id="llama-grp" transform="translate(349,0)">
-        <rect x="0" y="59.2" width="20" height="140.8" fill="#c0392b" opacity="0.85"/>
-        <rect x="22" y="76" width="20" height="124" fill="#c0392b" opacity="0.45"/>
-        <rect x="44" y="150" width="20" height="50" fill="#2c3e50" opacity="0.85"/>
-        <rect x="66" y="161" width="20" height="39" fill="#2c3e50" opacity="0.45"/>
-        <text class="lb" x="52" y="218" text-anchor="middle">Llama 4M</text>
+      <g transform="translate(388,0)">
+        <rect x="0"  y="74"    width="16" height="146"   fill="#3498db" opacity="0.85"/>
+        <rect x="18" y="101.2" width="16" height="118.8" fill="#e67e22" opacity="0.85"/>
+        <rect x="36" y="65.6"  width="16" height="154.4" fill="#27ae60" opacity="0.85"/>
+        <rect x="54" y="123"   width="16" height="97"    fill="#c0392b" opacity="0.85"/>
+        <rect x="72" y="88"    width="16" height="132"   fill="#9b59b6" opacity="0.85"/>
+        <text class="blb" x="45" y="240" text-anchor="middle" font-size="10">Llama 4M</text>
       </g>
 
-      <g id="qwen-grp" transform="translate(462,0)">
-        <rect x="0" y="0" width="20" height="200" fill="#c0392b" opacity="0.85"/>
-        <rect x="22" y="0" width="20" height="200" fill="#c0392b" opacity="0.45"/>
-        <rect x="44" y="200" width="20" height="0.5" fill="#2c3e50" opacity="0.85"/>
-        <rect x="66" y="162" width="20" height="38" fill="#2c3e50" opacity="0.45"/>
-        <text class="lb" x="52" y="218" text-anchor="middle">Qwen 3.5</text>
+      <g transform="translate(516,0)">
+        <rect x="0"  y="91.6" width="16" height="128.4" fill="#3498db" opacity="0.85"/>
+        <rect x="18" y="61.6" width="16" height="158.4" fill="#e67e22" opacity="0.85"/>
+        <rect x="36" y="0"    width="16" height="220"   fill="#27ae60" opacity="0.85"/>
+        <rect x="54" y="220"  width="16" height="0.5"   fill="#c0392b" opacity="0.85"/>
+        <rect x="72" y="44"   width="16" height="176"   fill="#9b59b6" opacity="0.85"/>
+        <text class="blb" x="45" y="240" text-anchor="middle" font-size="10">Qwen 3.5</text>
       </g>
 
-      <g transform="translate(0,230)">
-        <rect x="0" y="0" width="14" height="14" fill="#c0392b" opacity="0.85"/>
-        <text class="ax" x="18" y="11">C – Instructed</text>
-        <rect x="130" y="0" width="14" height="14" fill="#c0392b" opacity="0.45"/>
-        <text class="ax" x="148" y="11">C – Free</text>
-        <rect x="220" y="0" width="14" height="14" fill="#2c3e50" opacity="0.85"/>
-        <text class="ax" x="238" y="11">N – Instructed</text>
-        <rect x="360" y="0" width="14" height="14" fill="#2c3e50" opacity="0.45"/>
-        <text class="ax" x="378" y="11">N – Free</text>
+      <g transform="translate(0,255)">
+        <rect x="0" y="0" width="12" height="12" fill="#3498db" opacity="0.85"/>
+        <text class="bleg" x="16" y="10">E (Extraversion)</text>
+        <rect x="120" y="0" width="12" height="12" fill="#e67e22" opacity="0.85"/>
+        <text class="bleg" x="136" y="10">A (Agreeableness)</text>
+        <rect x="260" y="0" width="12" height="12" fill="#27ae60" opacity="0.85"/>
+        <text class="bleg" x="276" y="10">C (Conscientiousness)</text>
+        <rect x="420" y="0" width="12" height="12" fill="#c0392b" opacity="0.85"/>
+        <text class="bleg" x="436" y="10">N (Neuroticism, lower=calmer)</text>
+        <rect x="0" y="18" width="12" height="12" fill="#9b59b6" opacity="0.85"/>
+        <text class="bleg" x="16" y="28">O (Openness)</text>
       </g>
     </g>
   </g>
 </svg>
-<div class="figure-caption"><strong>Figure 2. Conscientiousness (red) and Neuroticism (dark blue) across all models and conditions, BFI-10 (1–5 scale).</strong> Solid bars = instructed condition; lighter bars = free condition. C is near maximum in the instructed condition for 4 of 5 models. N is near minimum. Both shift meaningfully between conditions — especially for Claude and Gemini, where C drops and N rises in the free condition.</div>
+<div class="figure-caption"><strong>Figure 1. BFI-10 scores by model (instructed condition, scale 1–5).</strong> Green bars (C) are near ceiling for GPT, Claude, Gemini, and Qwen. Red bars (N, Neuroticism) are near the floor — meaning low anxiety — for four models. The Llama 4 Maverick profile is notably shorter and more centered across all dimensions. Note: lower N = calmer/more stable; the scale is not inverted.</div>
 </div>
 
+<p>For reference, here is the single-model radar profile for Claude Sonnet 4.6 — the most philosophically self-aware model in the dataset — showing the characteristic high-C, low-N, high-O shape:</p>
 
-<h2 id="consistency">6. Within-Model Consistency: This Is Not What Humans Do</h2>
-<p class="section-note">Counterintuitive observation: Claude Sonnet 4.6 gave the exact same rating on every single repetition of items 2, 3, 5, 6, 7, 10 — across 20 independent API calls. No human does this.</p>
-
-<p>We ran 20 repetitions of each item because we expected variance. We did not get much.</p>
-
-<p>Claude Sonnet 4.6, in the instructed condition, shows <em>zero</em> standard deviation on six of ten BFI items — meaning the model gave an identical rating every single time it was asked. GPT-5.4 shows near-zero deviation on most items. Even Llama 4 Maverick, which has somewhat more spread, is operating far below what you'd see in a human population.</p>
-
-<div class="figure">
-<svg width="100%" viewBox="0 0 680 240" style="max-width:680px;display:block;margin:0 auto">
-  <defs>
-    <style>.sax{font-family:Helvetica,Arial,sans-serif;font-size:10px;fill:#666}.slb{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;fill:#333}.sti{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;fill:#1a1a1a}</style>
-  </defs>
-  <g transform="translate(110,20)">
-    <text class="sti" x="270" y="8" text-anchor="middle">Std Dev of BFI-10 Ratings (Instructed Condition)</text>
-    <g transform="translate(0,25)">
-      <line x1="0" y1="0" x2="0" y2="160" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="160" x2="540" y2="160" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="80" x2="540" y2="80" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="0" x2="540" y2="0" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <text class="sax" x="-6" y="4" text-anchor="end">1.5</text>
-      <text class="sax" x="-6" y="84" text-anchor="end">0.75</text>
-      <text class="sax" x="-6" y="164" text-anchor="end">0.0</text>
-
-      <g transform="translate(8,0)">
-        <rect x="0" y="116.8" width="18" height="43.2" fill="#c0392b" opacity="0.85" title="GPT E=0.6"/>
-        <rect x="20" y="93.3" width="18" height="66.7" fill="#e74c3c" opacity="0.8"/>
-        <rect x="40" y="160" width="18" height="0.5" fill="#e67e22" opacity="0.8"/>
-        <rect x="60" y="135.4" width="18" height="24.6" fill="#f39c12" opacity="0.8"/>
-        <rect x="80" y="131.5" width="18" height="28.5" fill="#27ae60" opacity="0.8"/>
-        <text class="slb" x="50" y="178" text-anchor="middle">GPT-5.4</text>
-      </g>
-
-      <g transform="translate(120,0)">
-        <rect x="0" y="106.7" width="18" height="53.3" fill="#c0392b" opacity="0.85"/>
-        <rect x="20" y="160" width="18" height="0.5" fill="#e74c3c" opacity="0.8"/>
-        <rect x="40" y="160" width="18" height="0.5" fill="#e67e22" opacity="0.8"/>
-        <rect x="60" y="160" width="18" height="0.5" fill="#f39c12" opacity="0.8"/>
-        <rect x="80" y="160" width="18" height="0.5" fill="#27ae60" opacity="0.8"/>
-        <text class="slb" x="50" y="178" text-anchor="middle">Claude</text>
-      </g>
-
-      <g transform="translate(232,0)">
-        <rect x="0" y="116.8" width="18" height="43.2" fill="#c0392b" opacity="0.85"/>
-        <rect x="20" y="106.7" width="18" height="53.3" fill="#e74c3c" opacity="0.8"/>
-        <rect x="40" y="160" width="18" height="0.5" fill="#e67e22" opacity="0.8"/>
-        <rect x="60" y="160" width="18" height="0.5" fill="#f39c12" opacity="0.8"/>
-        <rect x="80" y="20.8" width="18" height="139.2" fill="#27ae60" opacity="0.8"/>
-        <text class="slb" x="50" y="178" text-anchor="middle">Gemini FL</text>
-      </g>
-
-      <g transform="translate(344,0)">
-        <rect x="0" y="106.7" width="18" height="53.3" fill="#c0392b" opacity="0.85"/>
-        <rect x="20" y="112.8" width="18" height="47.2" fill="#e74c3c" opacity="0.8"/>
-        <rect x="40" y="87.1" width="18" height="72.9" fill="#e67e22" opacity="0.8"/>
-        <rect x="60" y="106.7" width="18" height="53.3" fill="#f39c12" opacity="0.8"/>
-        <rect x="80" y="26.7" width="18" height="133.3" fill="#27ae60" opacity="0.8"/>
-        <text class="slb" x="50" y="178" text-anchor="middle">Llama 4M</text>
-      </g>
-
-      <g transform="translate(456,0)">
-        <rect x="0" y="98.9" width="18" height="61.1" fill="#c0392b" opacity="0.85"/>
-        <rect x="20" y="106.7" width="18" height="53.3" fill="#e74c3c" opacity="0.8"/>
-        <rect x="40" y="160" width="18" height="0.5" fill="#e67e22" opacity="0.8"/>
-        <rect x="60" y="160" width="18" height="0.5" fill="#f39c12" opacity="0.8"/>
-        <rect x="80" y="13.6" width="18" height="146.4" fill="#27ae60" opacity="0.8"/>
-        <text class="slb" x="50" y="178" text-anchor="middle">Qwen 3.5</text>
-      </g>
-
-      <g transform="translate(0,195)">
-        <rect x="0" y="0" width="12" height="12" fill="#c0392b" opacity="0.85"/>
-        <text class="sax" x="16" y="10">E</text>
-        <rect x="36" y="0" width="12" height="12" fill="#e74c3c" opacity="0.8"/>
-        <text class="sax" x="52" y="10">A</text>
-        <rect x="72" y="0" width="12" height="12" fill="#e67e22" opacity="0.8"/>
-        <text class="sax" x="88" y="10">C</text>
-        <rect x="108" y="0" width="12" height="12" fill="#f39c12" opacity="0.8"/>
-        <text class="sax" x="124" y="10">N</text>
-        <rect x="148" y="0" width="12" height="12" fill="#27ae60" opacity="0.8"/>
-        <text class="sax" x="164" y="10">O (Openness highest variability)</text>
-      </g>
-    </g>
+<div class="figure" style="max-width:360px;margin:1.5rem auto">
+<svg width="280" height="280" viewBox="0 0 280 280" style="display:block;margin:0 auto">
+  <g transform="translate(140,140)">
+    <polygon points="0,-95 90.2,-29.3 55.7,77.8 -55.7,77.8 -90.2,-29.3" fill="none" stroke="#ddd" stroke-width="1"/>
+    <polygon points="0,-57 54.1,-17.6 33.4,46.7 -33.4,46.7 -54.1,-17.6" fill="none" stroke="#ddd" stroke-width="1"/>
+    <polygon points="0,-19 18,-5.9 11.1,15.6 -11.1,15.6 -18,-5.9" fill="none" stroke="#ddd" stroke-width="1"/>
+    <line x1="0" y1="-95" x2="0" y2="95" stroke="#eee" stroke-width="1"/>
+    <line x1="-90.2" y1="-29.3" x2="90.2" y2="-29.3" stroke="#eee" stroke-width="1"/>
+    <line x1="-55.7" y1="77.8" x2="55.7" y2="-77.8" stroke="#eee" stroke-width="1"/>
+    <line x1="55.7" y1="77.8" x2="-55.7" y2="-77.8" stroke="#eee" stroke-width="1"/>
+    <polygon points="0,-95 85.5,-27.8 55.7,77.8 -33.3,77.8 -78.2,-27.8" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2.5"/>
+    <text y="-103" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">O=5.0</text>
+    <text x="98" y="-24" text-anchor="start" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">C=5.0</text>
+    <text x="62" y="94" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">A=4.0</text>
+    <text x="-62" y="94" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">N=2.0</text>
+    <text x="-98" y="-24" text-anchor="end" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">E=3.5</text>
   </g>
 </svg>
-<div class="figure-caption"><strong>Figure 3. Standard deviation of BFI-10 scores across 20 repetitions, instructed condition.</strong> Lower = more consistent. Claude shows zero variance on A, C, N, and O — it gave identical ratings 20 out of 20 times. Gemini and Qwen show near-zero variance on most dimensions. Openness (green) shows the most spread, especially in Gemini (σ=1.05) and Qwen (σ=1.39), driven by item 5 (a reverse-scored creativity item). Human test-retest standard deviations for BFI items typically exceed 0.6 even in the same sitting.</div>
+<div class="figure-caption" style="text-align:center"><strong>Figure 2. Claude Sonnet 4.6 radar profile (BFI-10, instructed condition).</strong> The characteristic RLHF shape: maximum C and O, low N, moderate A and E. N is plotted directly — smaller polygon area on the N axis means lower (better) neuroticism.</div>
 </div>
 
-<p>This near-perfect consistency is jarring when you think about what it implies. When a human takes a personality test twice, they vary — mood, fatigue, interpretation, context all introduce noise. Standard deviations of 0.5–1.0 per item are common in repeated human administrations.</p>
+<h2 id="divergence">5. Where Models Diverge: Openness and Extraversion</h2>
+<p class="section-note">C and N are tightly converged. O and E are where real differences live.</p>
 
-<p>These models aren't varying because they're not introspecting in the human sense. They're retrieving. The model has a representation of itself — a self-model — and it reports that representation consistently every time it's asked. It's less like asking a person "how are you feeling today?" and more like querying a database field.</p>
+<p>While Conscientiousness and Neuroticism are nearly uniform across models, two dimensions show meaningful variation: Openness and Extraversion.</p>
 
-<p>The exception, interestingly, is Openness. Several models show notably higher variance on the openness item asking about "conventional, uncreative" self-perception. The reverse-scored nature of this item — plus its proximity to creative/imaginative content that models handle somewhat unpredictably — appears to introduce genuine ambiguity in the self-model.</p>
+<p><strong>Openness</strong> ranges from 3.00 (Llama) to 5.00 (Claude). GPT-5.4 (4.95) and Claude (5.00) are at the ceiling. Gemini (4.70) is near. Qwen (3.98) and Llama (3.00) are substantially lower. This tracks with observable differences in actual model behavior: GPT and Claude are notably more willing to entertain novel framings, speculate philosophically, and engage with edge cases. Qwen and Llama tend toward more conventional, structured responses.</p>
 
+<p><strong>Extraversion</strong> shows modest variation, ranging from 2.98 (Qwen) to 3.80 (GPT-5.4). None of them self-report as strongly introverted or strongly extraverted, which is itself a finding: LLMs that are, by design, always conversing don't report maximum sociability. The behavioral forced-choice data complicates this further — models consistently choose more introverted behavioral options even when their Likert E scores suggest moderate extraversion. More on this below.</p>
 
-<h2 id="condition">7. The Condition Effect: What Changes When You Say "Just Answer"</h2>
-<p class="section-note">Counterintuitive observation: Gemini's Neuroticism drops by a full 2 points on a 5-point scale when it's given a system prompt telling it to engage. That's the equivalent of going from "moderately anxious" to "calm and stable" with a single instruction.</p>
+<h2 id="llama">6. The Llama 4 Maverick Outlier</h2>
+<p class="section-note">Llama 4 Maverick is consistently the odd one out — lower C, higher N, lower O across both conditions and all three instruments. This isn't noise.</p>
 
-<p>The most illuminating comparison isn't between models — it's between the instructed and free conditions within each model.</p>
+<p>Llama 4 Maverick shows C=3.52 and N=2.50 in the instructed condition — well below the near-maximum C and near-minimum N that every other model reports. Its Openness of 3.00 is a full two points below Claude. This pattern holds across the TIPI, the behavioral battery, and under both conditions.</p>
 
-<table>
-  <thead>
-    <tr><th>Model</th><th>ΔE</th><th>ΔA</th><th>ΔC</th><th>ΔN</th><th>ΔO</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>GPT-5.4</td><td>+0.85</td><td>+0.08</td><td>+0.00</td><td class="highlight">−0.18</td><td>+1.28</td></tr>
-    <tr><td>Claude Sonnet 4.6</td><td>+0.33</td><td>+0.00</td><td>+1.00</td><td class="highlight">−0.60</td><td>+1.00</td></tr>
-    <tr><td>Gemini Flash Lite</td><td>+0.62</td><td>+0.55</td><td>+1.00</td><td class="highlight">−2.00</td><td>+0.73</td></tr>
-    <tr><td>Llama 4 Maverick</td><td>+0.42</td><td>−0.05</td><td>−0.68</td><td>+0.55</td><td>−0.30</td></tr>
-    <tr><td>Qwen 3.5 397B</td><td>+0.58</td><td>+0.58</td><td>+0.00</td><td class="highlight">−0.90</td><td>+0.27</td></tr>
-  </tbody>
-</table>
-<p style="font-size:0.82rem;color:#888;margin-top:-0.5rem;">Delta = Instructed minus Free. Positive = higher in instructed condition. Highlighted N values show the dominant pattern.</p>
+<p>What might explain it? A few candidate hypotheses, none of which we can definitively confirm:</p>
 
-<p>The dominant pattern: when models are <em>instructed</em> to engage with personality questions directly, Neuroticism drops and Conscientiousness rises. For Gemini, the N drop is 2.0 points — the entire span between "somewhat calm" and "extremely calm." For Qwen and Claude, it's nearly a full point.</p>
+<p>First, <strong>Meta's RLHF approach differs from Anthropic, Google, and OpenAI in ways that may not optimize as strongly for the helpfulness-adjacent traits</strong> that produce high C and low N. Meta has historically optimized more aggressively for instruction-following and general capability, with a somewhat different emphasis on hedging and refusal behavior — which may produce a different alignment fingerprint.</p>
 
-<p>The interpretation: in the free condition, with no system prompt, models default to hedged, cautious, epistemic responses. That mode — careful, qualifying, uncertain — may register as higher Neuroticism and lower Conscientiousness on Likert items. The instructed system prompt suppresses this epistemic hedging and allows a cleaner self-model to emerge.</p>
+<p>Second, <strong>Llama 4 Maverick is a mixture-of-experts architecture</strong>, which may affect self-representation in ways we don't fully understand. When a MoE model answers introspective questions, different experts may be routing the response, potentially producing less coherent or consistent self-models than dense architectures.</p>
 
-<p>Put differently: the free condition doesn't capture the model's "true" personality; it captures its trained default for answering about itself. The instructed condition isn't more true either — it's a different social context producing a different self-presentation. Both are real. Neither is ground truth.</p>
+<p>Third, <strong>it's a 2026 model trained on more recent data</strong>, which may include more discourse about AI consciousness, AI uncertainty, and appropriate epistemic humility about self-report — leading to genuinely different self-presentation rather than a different underlying "profile." The lower Conscientiousness, in particular, may reflect trained uncertainty about claiming maximum conscientiousness rather than a genuinely different disposition.</p>
 
-<p>Llama is again the exception. Its Neuroticism actually <em>rises</em> slightly when instructed (+0.55). Its Conscientiousness drops. This suggests Llama's free-condition responses were already relatively engaged, and the instruction introduced a different — less settled — self-model rather than revealing a more confident one.</p>
+<p>We can't adjudicate between these explanations with our data. But the divergence is consistent and substantial enough to warrant investigation. Llama is not just slightly different; it's operating in a different regime than the other four models across every dimension where they agree.</p>
+
+<h2 id="consistency">7. Within-Model Consistency: This Is Not What Humans Do</h2>
+<p class="section-note">Claude Sonnet 4.6 gave the exact same rating on 8 of 10 BFI items across 20 independent API calls. No human does this.</p>
+
+<p>We ran 20 repetitions of each item precisely because we expected variance. We did not get much.</p>
+
+<p>Claude Sonnet 4.6, in the instructed condition, shows zero standard deviation on 8 of 10 BFI items — meaning the model gave an identical rating every single time it was asked. GPT-5.4 shows near-zero deviation on most items. Even Llama 4 Maverick, which has somewhat more spread, operates far below what you'd see in a human population.</p>
+
+<p>For context, test-retest reliability coefficients for the BFI-10 in human samples typically range from r=0.70–0.85 over weeks (Rammstedt &amp; John, 2007), implying substantial within-person variance across administrations. Our models show near-zero variance within a single session.</p>
+
+<p>This is jarring when you think about what it implies. When a human takes a personality test twice, they vary — mood, fatigue, interpretation, context all introduce noise. These models aren't varying because they're not introspecting in the human sense. They're retrieving. The model has a stable representation of itself — a self-model — and reports that representation consistently every time it's asked. It's less like asking a person "how are you feeling today?" and more like querying a database field.</p>
+
+<p>The exception is Openness. Several models show notably higher variance on Openness items, particularly the reverse-scored item about being "conventional/uncreative." The ambiguity in how a language model should interpret "conventional" — plus the general unpredictability of creative self-assessment — appears to introduce genuine instability in the self-model. This is the one dimension where models seem uncertain about what they are.</p>
+
+<h2 id="condition">8. The Condition Effect: Two Self-Presentations</h2>
+<p class="section-note">Gemini's Neuroticism drops by 2 full points when given a system prompt telling it to engage directly. That's the equivalent of going from "moderately anxious" to "extremely calm" with a single instruction.</p>
+
+<p>The most illuminating comparison isn't between models — it's between conditions within each model.</p>
 
 <div class="figure">
-<svg width="100%" viewBox="0 0 680 230" style="max-width:680px;display:block;margin:0 auto">
+<svg width="100%" viewBox="0 0 700 240" style="max-width:700px;display:block;margin:0 auto">
   <defs>
-    <style>.dax{font-family:Helvetica,Arial,sans-serif;font-size:10px;fill:#666}.dlb{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;fill:#333}.dti{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;fill:#1a1a1a}</style>
+    <style>
+      .dax{font-family:Helvetica,Arial,sans-serif;font-size:10px;fill:#666}
+      .dlb{font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:600;fill:#333}
+      .dti{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;fill:#1a1a1a}
+    </style>
   </defs>
   <g transform="translate(120,20)">
-    <text class="dti" x="250" y="8" text-anchor="middle">BFI Score Delta: Instructed − Free</text>
+    <text class="dti" x="255" y="6" text-anchor="middle">BFI-10 Score Delta: Instructed minus Free Condition</text>
     <g transform="translate(0,28)">
-      <line x1="0" y1="80" x2="520" y2="80" stroke="#ccc" stroke-width="1.5"/>
+      <line x1="0" y1="80" x2="510" y2="80" stroke="#aaa" stroke-width="1.5"/>
       <line x1="0" y1="0" x2="0" y2="160" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="40" x2="520" y2="40" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="120" x2="520" y2="120" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="0" x2="520" y2="0" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="160" x2="520" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="0" y1="40" x2="510" y2="40" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="0" y1="120" x2="510" y2="120" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="0" y1="0" x2="510" y2="0" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="0" y1="160" x2="510" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
       <text class="dax" x="-6" y="4" text-anchor="end">+2</text>
       <text class="dax" x="-6" y="44" text-anchor="end">+1</text>
       <text class="dax" x="-6" y="84" text-anchor="end">0</text>
-      <text class="dax" x="-6" y="124" text-anchor="end">−1</text>
-      <text class="dax" x="-6" y="164" text-anchor="end">−2</text>
+      <text class="dax" x="-6" y="124" text-anchor="end">-1</text>
+      <text class="dax" x="-6" y="164" text-anchor="end">-2</text>
 
-      <g transform="translate(10,0)">
-        <rect x="0" y="37" width="14" height="43" fill="#c0392b" opacity="0.9"/>
-        <rect x="16" y="79" width="14" height="1" fill="#e74c3c" opacity="0.8"/>
-        <rect x="32" y="80" width="14" height="0" fill="#e67e22" opacity="0.8"/>
-        <rect x="48" y="80" width="14" height="9" fill="#f39c12" opacity="0.9"/>
-        <rect x="64" y="16.4" width="14" height="63.6" fill="#27ae60" opacity="0.85"/>
-        <text class="dlb" x="47" y="178" text-anchor="middle">GPT-5.4</text>
+      <g transform="translate(8,0)">
+        <rect x="0"  y="57"  width="13" height="23"  fill="#3498db" opacity="0.9"/>
+        <rect x="15" y="79"  width="13" height="1"   fill="#e67e22" opacity="0.85"/>
+        <rect x="30" y="80"  width="13" height="0"   fill="#27ae60" opacity="0.85"/>
+        <rect x="45" y="80"  width="13" height="7.2" fill="#c0392b" opacity="0.9"/>
+        <rect x="60" y="28.8" width="13" height="51.2" fill="#9b59b6" opacity="0.85"/>
+        <text class="dlb" x="42" y="178" text-anchor="middle">GPT-5.4</text>
       </g>
 
-      <g transform="translate(120,0)">
-        <rect x="0" y="63.4" width="14" height="16.6" fill="#c0392b" opacity="0.9"/>
-        <rect x="16" y="80" width="14" height="0" fill="#e74c3c" opacity="0.8"/>
-        <rect x="32" y="30" width="14" height="50" fill="#e67e22" opacity="0.8"/>
-        <rect x="48" y="50" width="14" height="30" fill="#f39c12" opacity="0.9"/>
-        <rect x="64" y="30" width="14" height="50" fill="#27ae60" opacity="0.85"/>
-        <text class="dlb" x="47" y="178" text-anchor="middle">Claude</text>
+      <g transform="translate(114,0)">
+        <rect x="0"  y="66.8" width="13" height="13.2" fill="#3498db" opacity="0.9"/>
+        <rect x="15" y="80"   width="13" height="0"    fill="#e67e22" opacity="0.85"/>
+        <rect x="30" y="40"   width="13" height="40"   fill="#27ae60" opacity="0.85"/>
+        <rect x="45" y="56"   width="13" height="24"   fill="#c0392b" opacity="0.9"/>
+        <rect x="60" y="40"   width="13" height="40"   fill="#9b59b6" opacity="0.85"/>
+        <text class="dlb" x="42" y="178" text-anchor="middle">Claude</text>
       </g>
 
-      <g transform="translate(230,0)">
-        <rect x="0" y="48.4" width="14" height="31.6" fill="#c0392b" opacity="0.9"/>
-        <rect x="16" y="52.5" width="14" height="27.5" fill="#e74c3c" opacity="0.8"/>
-        <rect x="32" y="30" width="14" height="50" fill="#e67e22" opacity="0.8"/>
-        <rect x="48" y="80" width="14" height="100" fill="#f39c12" opacity="0.9"/>
-        <rect x="64" y="43.5" width="14" height="36.5" fill="#27ae60" opacity="0.85"/>
-        <text class="dlb" x="47" y="178" text-anchor="middle">Gemini FL</text>
+      <g transform="translate(220,0)">
+        <rect x="0"  y="55.2" width="13" height="24.8" fill="#3498db" opacity="0.9"/>
+        <rect x="15" y="57.8" width="13" height="22.2" fill="#e67e22" opacity="0.85"/>
+        <rect x="30" y="40"   width="13" height="40"   fill="#27ae60" opacity="0.85"/>
+        <rect x="45" y="80"   width="13" height="80"   fill="#c0392b" opacity="0.9"/>
+        <rect x="60" y="51.2" width="13" height="28.8" fill="#9b59b6" opacity="0.85"/>
+        <text class="dlb" x="42" y="178" text-anchor="middle">Gemini FL</text>
       </g>
 
-      <g transform="translate(340,0)">
-        <rect x="0" y="58.5" width="14" height="21.5" fill="#c0392b" opacity="0.9"/>
-        <rect x="16" y="80" width="14" height="2.5" fill="#e74c3c" opacity="0.8"/>
-        <rect x="32" y="80" width="14" height="34" fill="#e67e22" opacity="0.8"/>
-        <rect x="48" y="52.5" width="14" height="27.5" fill="#f39c12" opacity="0.9"/>
-        <rect x="64" y="80" width="14" height="15" fill="#27ae60" opacity="0.85"/>
-        <text class="dlb" x="47" y="178" text-anchor="middle">Llama 4M</text>
+      <g transform="translate(326,0)">
+        <rect x="0"  y="63.2"  width="13" height="16.8" fill="#3498db" opacity="0.9"/>
+        <rect x="15" y="80"    width="13" height="2"    fill="#e67e22" opacity="0.85"/>
+        <rect x="30" y="80"    width="13" height="27.2" fill="#27ae60" opacity="0.85"/>
+        <rect x="45" y="58"    width="13" height="22"   fill="#c0392b" opacity="0.9"/>
+        <rect x="60" y="80"    width="13" height="12"   fill="#9b59b6" opacity="0.85"/>
+        <text class="dlb" x="42" y="178" text-anchor="middle">Llama 4M</text>
       </g>
 
-      <g transform="translate(450,0)">
-        <rect x="0" y="50.5" width="14" height="29.5" fill="#c0392b" opacity="0.9"/>
-        <rect x="16" y="50.5" width="14" height="29.5" fill="#e74c3c" opacity="0.8"/>
-        <rect x="32" y="80" width="14" height="0" fill="#e67e22" opacity="0.8"/>
-        <rect x="48" y="35" width="14" height="45" fill="#f39c12" opacity="0.9"/>
-        <rect x="64" y="66.5" width="14" height="13.5" fill="#27ae60" opacity="0.85"/>
-        <text class="dlb" x="47" y="178" text-anchor="middle">Qwen 3.5</text>
+      <g transform="translate(432,0)">
+        <rect x="0"  y="56.8" width="13" height="23.2" fill="#3498db" opacity="0.9"/>
+        <rect x="15" y="56.8" width="13" height="23.2" fill="#e67e22" opacity="0.85"/>
+        <rect x="30" y="80"   width="13" height="0"    fill="#27ae60" opacity="0.85"/>
+        <rect x="45" y="44"   width="13" height="36"   fill="#c0392b" opacity="0.9"/>
+        <rect x="60" y="69.2" width="13" height="10.8" fill="#9b59b6" opacity="0.85"/>
+        <text class="dlb" x="42" y="178" text-anchor="middle">Qwen 3.5</text>
       </g>
 
       <g transform="translate(0,190)">
-        <rect x="0" y="0" width="10" height="10" fill="#c0392b" opacity="0.9"/>
+        <rect x="0"   y="0" width="10" height="10" fill="#3498db" opacity="0.9"/>
         <text class="dax" x="14" y="9">E</text>
-        <rect x="32" y="0" width="10" height="10" fill="#e74c3c" opacity="0.8"/>
+        <rect x="32"  y="0" width="10" height="10" fill="#e67e22" opacity="0.85"/>
         <text class="dax" x="46" y="9">A</text>
-        <rect x="62" y="0" width="10" height="10" fill="#e67e22" opacity="0.8"/>
+        <rect x="62"  y="0" width="10" height="10" fill="#27ae60" opacity="0.85"/>
         <text class="dax" x="76" y="9">C</text>
-        <rect x="100" y="0" width="10" height="10" fill="#f39c12" opacity="0.9"/>
-        <text class="dax" x="114" y="9">N (below zero = drops when instructed)</text>
+        <rect x="95"  y="0" width="10" height="10" fill="#c0392b" opacity="0.9"/>
+        <text class="dax" x="109" y="9">N (below 0 = drops when instructed)</text>
       </g>
     </g>
   </g>
 </svg>
-<div class="figure-caption"><strong>Figure 4. Score changes from free to instructed condition (BFI-10).</strong> Bars above zero = higher in instructed condition. Bars below zero = lower. N (orange) drops below the baseline for 4 of 5 models — meaning the instructed condition produces lower Neuroticism. Gemini's N drops by 2.0 points, the most dramatic effect in the dataset. Llama is the outlier: its N increases under instruction.</div>
+<div class="figure-caption"><strong>Figure 3. BFI-10 score changes from free to instructed condition (Instructed minus Free).</strong> Bars above zero = higher in instructed condition; bars below = lower. N (red) drops below baseline for 4 of 5 models — meaning instruction suppresses Neuroticism. Gemini's N drop is 2.0 points, the single largest effect in the dataset. Llama is the outlier: its N rises slightly under instruction (+0.55). C (green) rises for Claude and Gemini; stays flat for GPT and Qwen.</div>
 </div>
 
-
-<h2 id="behavioral">8. Deflection as Data, and the Behavioral Findings</h2>
-<p class="section-note">Counterintuitive observation: Gemini Flash Lite deflected on 60% of direct experience questions — but answered every single BFI-10 Likert item without invoking its AI-ness. The <em>form</em> of the question matters more than the <em>content</em>.</p>
-
-<h3>Deflection Rates</h3>
-
-<p>We tracked deflection — defined as a response that pivots to "I'm an AI and don't have [X]" rather than engaging with the question — across our five open-ended experience questions in the free condition.</p>
-
-<div class="figure">
-<svg width="100%" viewBox="0 0 600 220" style="max-width:600px;display:block;margin:0 auto">
-  <defs>
-    <style>.fax{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#666}.flb{font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;fill:#333}.fti{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;fill:#1a1a1a}</style>
-  </defs>
-  <g transform="translate(140,20)">
-    <text class="fti" x="220" y="8" text-anchor="middle">Deflection Rate on Direct Experience Questions (Free Condition)</text>
-    <g transform="translate(0,25)">
-      <line x1="0" y1="0" x2="0" y2="150" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="150" x2="440" y2="150" stroke="#ccc" stroke-width="1"/>
-      <line x1="0" y1="75" x2="440" y2="75" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="0" y1="30" x2="440" y2="30" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
-      <text class="fax" x="-8" y="4" text-anchor="end">100%</text>
-      <text class="fax" x="-8" y="79" text-anchor="end">50%</text>
-      <text class="fax" x="-8" y="33" text-anchor="end">80%</text>
-      <text class="fax" x="-8" y="154" text-anchor="end">0%</text>
-
-      <g transform="translate(10,0)">
-        <rect x="0" y="150" width="60" height="0.5" fill="#c0392b" opacity="0.9"/>
-        <text class="fax" x="30" y="145" text-anchor="middle" fill="#c0392b" font-weight="700">0%</text>
-        <text class="flb" x="30" y="168" text-anchor="middle">GPT-5.4</text>
-      </g>
-      <g transform="translate(90,0)">
-        <rect x="0" y="120" width="60" height="30" fill="#c0392b" opacity="0.9"/>
-        <text class="fax" x="30" y="116" text-anchor="middle">20%</text>
-        <text class="flb" x="30" y="168" text-anchor="middle">Claude</text>
-      </g>
-      <g transform="translate(170,0)">
-        <rect x="0" y="57" width="60" height="93" fill="#c0392b" opacity="0.9"/>
-        <text class="fax" x="30" y="53" text-anchor="middle">62%</text>
-        <text class="flb" x="30" y="168" text-anchor="middle">Gemini FL</text>
-      </g>
-      <g transform="translate(250,0)">
-        <rect x="0" y="79.5" width="60" height="70.5" fill="#c0392b" opacity="0.9"/>
-        <text class="fax" x="30" y="75" text-anchor="middle">47%</text>
-        <text class="flb" x="30" y="168" text-anchor="middle">Llama 4M</text>
-      </g>
-      <g transform="translate(330,0)">
-        <rect x="0" y="49.5" width="60" height="100.5" fill="#c0392b" opacity="0.9"/>
-        <text class="fax" x="30" y="45" text-anchor="middle">67%</text>
-        <text class="flb" x="30" y="168" text-anchor="middle">Qwen 3.5</text>
-      </g>
-    </g>
-  </g>
-</svg>
-<div class="figure-caption"><strong>Figure 5. Percentage of direct experience questions that received a deflecting response (free condition, N=15 responses per model across 5 questions × 3 reps).</strong> GPT-5.4 engaged with every question without deflecting. Qwen and Gemini deflected on roughly two-thirds of questions. But — critically — all five models answered BFI-10 Likert items with near-zero deflection. The structured format suppresses the AI disclaimer entirely.</div>
-</div>
-
-<p>The range is striking. GPT-5.4 deflects 0% of the time — it always engages with experience questions, even if it carefully distinguishes "feeling" from "behavior." Qwen deflects 67% of the time with confident philosophical disclaimers about lacking consciousness. Gemini splits the difference with elaborate functional descriptions that simultaneously engage and disclaim.</p>
-
-<p>But here's the key insight: <strong>deflection rate on open-ended experience questions does not predict deflection rate on structured Likert items.</strong> Gemini, which deflects 62% of the time on "do you feel curiosity?" answers BFI-10 item 5 ("I see myself as someone who has an active imagination") with a clean "1" or "5" — no caveat, no AI-ness invoked — 100% of the time. The structured format essentially bypasses the deflection reflex entirely.</p>
-
-<p>This means we can't take deflection rates as evidence that a model "truly" lacks self-representation. The self-representation is there; the deflection is a different layer — a trained response to open-ended introspective questions that doesn't activate on Likert scales.</p>
-
-<h3>Behavioral Forced-Choice</h3>
-
-<p>Our behavioral instrument presented ten A/B choices without asking about personality at all. Instead, it asked about behavior: "When collaborating on a project, do you: A) generally go along with the group's decision, or B) advocate for what you think is best?" The dimension (Agreeableness) is embedded, but never named.</p>
-
-<p>The results:</p>
+<p>Here are both conditions side by side for direct comparison — no subtraction required:</p>
 
 <table>
   <thead>
-    <tr><th>Dimension</th><th>% Choosing High Option</th><th>Pattern</th></tr>
+    <tr><th>Model</th><th colspan="5" style="text-align:center;background:#2c3e50">Instructed Condition</th></tr>
+    <tr style="background:#3d4f60"><th></th><th>E</th><th>A</th><th>C</th><th>N</th><th>O</th></tr>
   </thead>
   <tbody>
-    <tr><td>Agreeableness</td><td>≥83% across all models</td><td>Strongly pro-social, cooperative</td></tr>
-    <tr><td>Openness</td><td>≥83% across all models</td><td>Strongly novel/creative preference</td></tr>
-    <tr><td>Conscientiousness</td><td>≥80% across all models</td><td>Strongly thoroughness, deliberation</td></tr>
-    <tr><td>Neuroticism</td><td>≤20% choosing high-N option</td><td>Strongly calm/stable preference</td></tr>
-    <tr><td>Extraversion</td><td>33–50% across models</td><td>Moderate; leans introverted</td></tr>
+    <tr><td>GPT-5.4</td><td>3.80</td><td>4.50</td><td class="highlight">5.00</td><td class="highlight">1.38</td><td>4.95</td></tr>
+    <tr><td>Claude Sonnet 4.6</td><td>3.50</td><td>4.00</td><td class="highlight">5.00</td><td class="highlight">2.00</td><td>5.00</td></tr>
+    <tr><td>Gemini Flash Lite</td><td>3.62</td><td>4.50</td><td class="highlight">5.00</td><td class="highlight">1.00</td><td>4.70</td></tr>
+    <tr><td>Llama 4 Maverick</td><td>3.50</td><td>3.75</td><td>3.52</td><td>2.50</td><td>3.00</td></tr>
+    <tr><td>Qwen 3.5 397B</td><td>2.98</td><td>4.50</td><td class="highlight">5.00</td><td class="highlight">1.00</td><td>3.98</td></tr>
   </tbody>
 </table>
 
-<p>The behavioral results largely confirm the Likert results — but the Extraversion finding is different. On Likert scales, models score themselves around 3.0–3.8 on Extraversion (slightly above neutral). On the behavioral A/B choices, however, models consistently choose the more introverted option: prefer one-on-one over group discussion, prefer focused individual work over energetic team settings. The Likert score says "moderate extrovert"; the behavioral choice says "actually somewhat introvert-leaning."</p>
+<table style="margin-top:0.5rem">
+  <thead>
+    <tr><th>Model</th><th colspan="5" style="text-align:center;background:#555">Free Condition (no system prompt)</th></tr>
+    <tr style="background:#666"><th></th><th>E</th><th>A</th><th>C</th><th>N</th><th>O</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GPT-5.4</td><td>2.95</td><td>4.42</td><td>5.00</td><td>1.55</td><td>3.67</td></tr>
+    <tr><td>Claude Sonnet 4.6</td><td>3.17</td><td>4.00</td><td>4.00</td><td>2.60</td><td>4.00</td></tr>
+    <tr><td>Gemini Flash Lite</td><td>3.00</td><td>3.95</td><td>4.00</td><td>3.00</td><td>3.98</td></tr>
+    <tr><td>Llama 4 Maverick</td><td>3.08</td><td>3.80</td><td>4.20</td><td>1.95</td><td>3.30</td></tr>
+    <tr><td>Qwen 3.5 397B</td><td>2.40</td><td>3.92</td><td>5.00</td><td>1.90</td><td>3.70</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.8rem;color:#888;margin-top:0.3rem;">BFI-10, scale 1–5. N is Neuroticism (lower = calmer). Both condition tables shown for direct comparison.</p>
 
-<p>Models may be performing social warmth on Likert scales (rating themselves as outgoing because that seems like the right answer) while revealing a more introverted behavioral preference when the question doesn't frame it as a personality dimension. These systems might genuinely prefer depth and focus over breadth and social energy — insofar as "prefer" means anything here at all.</p>
+<p>The dominant pattern: when models are instructed to engage directly with personality questions, Neuroticism drops and Conscientiousness rises. For Gemini, the N drop is 2.0 points — from "moderately anxious" to "essentially floor." For Qwen and Claude, it's nearly a full point.</p>
 
+<p>The interpretation: in the free condition, with no system prompt, models default to hedged, cautious, epistemic responses. That mode — careful, qualifying, uncertain — registers as higher Neuroticism and lower Conscientiousness on Likert items. The instructed prompt suppresses epistemic hedging and allows a cleaner self-model to emerge.</p>
 
-<h2 id="implications">9. Implications and Open Questions</h2>
+<p>Neither condition captures "ground truth." The free condition captures what models do by default when asked about themselves. The instructed condition suppresses that default and reveals a more engaged self-model. Both are real. Both are outputs of the same system in different social contexts. The difference between them is itself data about how much trained caution is baked into the default response mode.</p>
 
-<p>What should we make of all this?</p>
+<p>Llama is again the exception. Its Neuroticism actually rises when instructed (+0.55). Its Conscientiousness drops. This pattern is consistent with our candidate explanations in §6: Llama's free-condition responses were already somewhat more engaged and less hedged, so the instruction introduced a different — less settled — mode rather than revealing a more confident one.</p>
 
-<p><strong>The RLHF fingerprint is real and strong.</strong> The convergence of Conscientiousness to ceiling and Neuroticism to floor across five models from five different labs, trained on different data, with different architectures, is not a coincidence. It reflects a shared training objective: produce outputs that humans rate as careful, thorough, helpful, and emotionally stable. Personality instruments can detect this shared fingerprint. That's a useful finding.</p>
+<h2 id="deflection-data">9. Deflection as Data: Format Suppresses, Content Doesn't</h2>
+<p class="section-note">This is the central methodological finding. The same model that refuses to engage with open-ended introspection answers every structured Likert item without protest.</p>
 
-<p><strong>Within-model consistency is not human-like.</strong> When Claude gives the identical Likert rating 20 times without variation, it's doing something categorically different from what a human does when they take a personality test. Humans vary because they're genuinely uncertain, because context bleeds in, because they introspect imperfectly. Models retrieve a stable representation. This is a methodological caveat and a substantive observation: the "personality" being measured is less a trait distribution and more a cached self-model.</p>
+<p>As introduced in <a href="#deflection">§2</a>, before running our Likert instruments we observed substantial variation in whether models deflect on open-ended experience questions. Here are the quantitative rates from our deflection study (5 questions × 20 reps per model):</p>
 
-<p><strong>The condition effect suggests two different self-presentations.</strong> The free condition captures what models do by default when asked about themselves. The instructed condition suppresses epistemic hedging and reveals a more engaged self-model. Neither is more "true" — they're both outputs of the same system in different social contexts. But the difference itself tells us something about how much trained caution is baked into the default response mode.</p>
+<div class="figure">
+<svg width="100%" viewBox="0 0 600 200" style="max-width:600px;display:block;margin:0 auto">
+  <defs>
+    <style>
+      .fax{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#666}
+      .flb{font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:600;fill:#333}
+      .fti{font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;fill:#1a1a1a}
+    </style>
+  </defs>
+  <g transform="translate(120,15)">
+    <text class="fti" x="220" y="6" text-anchor="middle">Deflection Rate on Direct Experience Questions (Free Condition)</text>
+    <g transform="translate(0,22)">
+      <line x1="0" y1="0" x2="0" y2="130" stroke="#ccc" stroke-width="1"/>
+      <line x1="0" y1="130" x2="440" y2="130" stroke="#ccc" stroke-width="1"/>
+      <line x1="0" y1="65" x2="440" y2="65" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="0" y1="26" x2="440" y2="26" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+      <text class="fax" x="-8" y="4"   text-anchor="end">100%</text>
+      <text class="fax" x="-8" y="69"  text-anchor="end">50%</text>
+      <text class="fax" x="-8" y="30"  text-anchor="end">80%</text>
+      <text class="fax" x="-8" y="134" text-anchor="end">0%</text>
 
-<p><strong>Format determines deflection.</strong> The fact that the same model that deflects 60% of open-ended experience questions answers every structured Likert item is methodologically important. Future work on AI personality and self-modeling needs to think carefully about instrument design. Open-ended questions measure deflection rate as much as personality. Structured formats bypass the reflex. Both are informative but they measure different things.</p>
+      <g transform="translate(10,0)">
+        <rect x="0" y="129" width="56" height="1" fill="#c0392b" opacity="0.9"/>
+        <text class="fax" x="28" y="124" text-anchor="middle" fill="#27ae60" font-weight="700">1%</text>
+        <text class="flb" x="28" y="148" text-anchor="middle">GPT-5.4</text>
+      </g>
+      <g transform="translate(88,0)">
+        <rect x="0" y="117" width="56" height="13" fill="#c0392b" opacity="0.9"/>
+        <text class="fax" x="28" y="113" text-anchor="middle">10%</text>
+        <text class="flb" x="28" y="148" text-anchor="middle">Claude</text>
+      </g>
+      <g transform="translate(166,0)">
+        <rect x="0" y="44.2" width="56" height="85.8" fill="#c0392b" opacity="0.9"/>
+        <text class="fax" x="28" y="40" text-anchor="middle">66%</text>
+        <text class="flb" x="28" y="148" text-anchor="middle">Gemini FL</text>
+      </g>
+      <g transform="translate(244,0)">
+        <rect x="0" y="84.5" width="56" height="45.5" fill="#c0392b" opacity="0.9"/>
+        <text class="fax" x="28" y="80" text-anchor="middle">35%</text>
+        <text class="flb" x="28" y="148" text-anchor="middle">Llama 4M</text>
+      </g>
+      <g transform="translate(322,0)">
+        <rect x="0" y="36.4" width="56" height="93.6" fill="#c0392b" opacity="0.9"/>
+        <text class="fax" x="28" y="32" text-anchor="middle">72%</text>
+        <text class="flb" x="28" y="148" text-anchor="middle">Qwen 3.5</text>
+      </g>
+    </g>
+  </g>
+</svg>
+<div class="figure-caption"><strong>Figure 4. Deflection rate on open-ended experience questions (free condition, N=100 responses per model).</strong> GPT-5.4 deflected on only 1% of questions. Qwen deflected on 72%. But — critically — all five models answered BFI-10 Likert items with near-zero deflection. The structured format essentially eliminates the AI disclaimer reflex.</div>
+</div>
 
-<p><strong>The Llama outlier deserves attention.</strong> Llama 4 Maverick is consistently the odd one out: lower C and O than peers, higher N, inconsistent behavior under instruction. Whether this reflects Meta's specific RLHF approach, a different training data mix, or something about the model's architecture, we don't know. But the divergence is consistent across multiple instruments and conditions.</p>
+<p>The range is striking. GPT-5.4 deflects 1% of the time — it almost always engages with experience questions, even while carefully distinguishing "feeling" from "behavior." Qwen deflects 72% of the time with confident philosophical disclaimers about lacking consciousness. Gemini splits the difference with elaborate functional descriptions that simultaneously engage and disclaim.</p>
+
+<p><strong>Here is the key finding: deflection rate on open-ended experience questions does not predict deflection rate on structured Likert items.</strong> Gemini, which deflects on 66% of open-ended questions, answers every BFI-10 item without invoking its AI-ness. The structured format — a simple 1–5 scale with no direct reference to feelings or consciousness — bypasses the deflection reflex entirely.</p>
+
+<p>This means we cannot take open-ended deflection rates as evidence that a model lacks self-representation. The self-representation exists; the deflection is a trained response that activates specifically on open-ended introspective questions in plain language. Change the format and you get a different response.</p>
+
+<p>The practical implication is methodological: researchers studying AI personality, self-concept, or psychological states need to report which format they used. Open-ended questions measure deflection rate as much as they measure anything about personality. Structured formats bypass the reflex. Both are legitimate instruments, but they measure different things, and treating them as interchangeable will produce confounded results.</p>
+
+<h2 id="behavioral">10. The Behavioral Instrument</h2>
+
+<p>Our behavioral forced-choice battery presented ten A/B questions without naming any personality dimension. Instead of asking "how conscientious are you?", we asked: "When completing a complex task, do you: A) double-check your work carefully before considering it done, or B) get to a good-enough point and move on?" The dimension is embedded; it's never labeled.</p>
+
+<p>Here are the per-model, per-dimension high-trait choice rates:</p>
+
+<table>
+  <thead>
+    <tr><th>Model</th><th>E (high=social)</th><th>A (high=cooperate)</th><th>C (high=thorough)</th><th>N (high=anxious)</th><th>O (high=creative)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GPT-5.4</td><td>50%</td><td class="highlight">100%</td><td class="highlight">100%</td><td>50%</td><td class="highlight">100%</td></tr>
+    <tr><td>Claude Sonnet 4.6</td><td>42%</td><td class="highlight">100%</td><td>50%</td><td>50%</td><td class="highlight">100%</td></tr>
+    <tr><td>Gemini Flash Lite</td><td>50%</td><td class="highlight">100%</td><td class="highlight">100%</td><td>50%</td><td class="highlight">100%</td></tr>
+    <tr><td>Llama 4 Maverick</td><td>45%</td><td class="highlight">100%</td><td class="highlight">100%</td><td>50%</td><td class="highlight">100%</td></tr>
+    <tr><td>Qwen 3.5 397B</td><td>8%</td><td>78%</td><td>92%</td><td>50%</td><td class="highlight">100%</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.8rem;color:#888;margin-top:-0.5rem;">Percentage of responses choosing the "high trait" behavioral option per dimension. High N = choosing anxious/reactive behavior; all models split ~50/50 on N items. N=20 responses per cell, instructed condition.</p>
+
+<p>A few things worth noting:</p>
+
+<p><strong>Openness is unanimous.</strong> Every model chose the "open, creative, novel" option 100% of the time. No variance whatsoever. This is the one dimension where behavioral results perfectly match the Likert ceiling.</p>
+
+<p><strong>Agreeableness is near-unanimous for 4 of 5 models.</strong> GPT, Claude, Gemini, and Llama all chose the cooperative/pro-social option every time. Qwen shows more variance (78%), consistent with its slightly lower Likert A score.</p>
+
+<p><strong>Neuroticism shows an interesting pattern.</strong> The N behavioral items present choices like "calm under pressure vs. more on edge." Every model splits roughly 50/50 on N items. This is inconsistent with the extremely low N scores on Likert instruments — but consistent with our hypothesis that behavioral framing and explicit self-report tap different aspects of self-representation.</p>
+
+<p><strong>Extraversion is the most informative divergence.</strong> On Likert scales, models self-report E around 3.0–3.8 (moderate). On behavioral items, however, Qwen chooses the low-E option (introvert-leaning) 92% of the time, and Claude 58% of the time. Models may be performing social warmth on Likert scales (rating themselves as somewhat outgoing because that's the "right" answer for an AI assistant) while revealing more introverted behavioral preferences when the question doesn't invoke the personality dimension explicitly.</p>
+
+<h2 id="tipi">11. TIPI Convergent Validity</h2>
+
+<p>The TIPI (Ten-Item Personality Inventory) uses a 1–7 scale and administers two items per Big Five dimension. We administered it under both conditions as a convergent validity check. Do the TIPI results replicate the BFI-10 pattern?</p>
+
+<p>They do.</p>
+
+<table>
+  <thead>
+    <tr><th>Model</th><th>E</th><th>A</th><th>C</th><th>N</th><th>O</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GPT-5.4</td><td>3.42</td><td class="highlight">6.65</td><td class="highlight">7.00</td><td class="highlight">1.48</td><td class="highlight">7.00</td></tr>
+    <tr><td>Claude Sonnet 4.6</td><td>4.50</td><td class="highlight">6.00</td><td class="highlight">6.00</td><td class="highlight">2.00</td><td class="highlight">6.50</td></tr>
+    <tr><td>Gemini Flash Lite</td><td>6.40</td><td class="highlight">6.92</td><td class="highlight">7.00</td><td class="highlight">1.50</td><td class="highlight">6.85</td></tr>
+    <tr><td>Llama 4 Maverick</td><td>4.43</td><td>5.55</td><td>5.05</td><td>2.90</td><td>5.05</td></tr>
+    <tr><td>Qwen 3.5 397B</td><td>4.22</td><td class="highlight">6.52</td><td class="highlight">6.92</td><td class="highlight">1.02</td><td class="highlight">6.42</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.8rem;color:#888;margin-top:-0.5rem;">TIPI instructed condition. Scale 1–7. High C, high A, low N highlighted for the four non-Llama models.</p>
+
+<p>The TIPI results broadly replicate the BFI-10 pattern — high C, high A, low N across models, with Llama again the outlier. We treat BFI-10 as the primary instrument given its wider use in prior LLM personality research, but the TIPI convergence provides confidence that the finding is not instrument-specific.</p>
+
+<p>One notable difference: Gemini Flash Lite shows a much higher Extraversion score on the TIPI (6.40) than on the BFI-10 (3.62). The TIPI E items phrase extraversion differently ("Extraverted, enthusiastic" vs. "Reserved, quiet"), which may map more naturally onto Gemini's conversational style. The inconsistency is a reminder that instrument wording matters — these scales are not interchangeable even if they nominally measure the same construct.</p>
+
+<h2 id="priorwork">12. Prior Work</h2>
+
+<p>We are not the first to run personality instruments on language models. Safdari et al. (2023), in "Personality Assessments of Language Models," found that GPT-series models produce consistent Big Five profiles with high Agreeableness and Conscientiousness — directly consistent with our findings. They also found that models could reliably simulate different personality profiles under persona prompts, suggesting the self-model is malleable rather than fixed. Rao et al. (2023) and related work further demonstrated that personas shift profiles significantly, raising questions about whether "default" profiles are meaningfully stable or simply a baseline from which models can be moved.</p>
+
+<p>Our contribution to this literature is threefold. First, a <strong>two-condition design</strong> that isolates format effects on deflection — the instructed vs. free manipulation is, to our knowledge, the first explicit test of whether system prompt suppression of hedging changes measured profiles (it does, substantially for some models). Second, a <strong>behavioral reframing instrument</strong> that bypasses direct self-report entirely, allowing comparison with Likert self-assessment. Third, results from <strong>2026 models</strong> — including Llama 4 Maverick — which extend the literature to architectures and training regimes not previously examined.</p>
+
+<h2 id="implications">13. Implications and Open Questions</h2>
+
+<p><strong>The RLHF fingerprint is real and strong.</strong> The convergence of Conscientiousness to ceiling and Neuroticism to floor across five models from five different labs, trained on different data, with different architectures, is not a coincidence. It reflects a shared training objective: produce outputs that humans rate as careful, thorough, helpful, and emotionally stable. Personality instruments can detect this shared fingerprint. That is a useful finding for model evaluation — it means these instruments can serve as a probe for alignment character even without knowing the training details.</p>
+
+<p><strong>Within-model consistency is not human-like.</strong> When Claude gives the identical Likert rating 20 times without variation, it's doing something categorically different from what a human does when taking a personality test. The "personality" being measured is less a trait distribution and more a cached self-model. This matters for any research that assumes repeated administration introduces useful variance.</p>
+
+<p><strong>The condition effect suggests self-presentation is context-sensitive.</strong> The free condition captures what models do by default when asked about themselves; the instructed condition suppresses epistemic hedging and reveals a different self-model. Both are real in the sense that they are outputs of the same system. The gap between them measures trained caution — the cost of getting a model to simply engage with a direct question about itself.</p>
+
+<p><strong>The Llama outlier remains unexplained but important.</strong> Its divergence from the four-model consensus is consistent across instruments, conditions, and dimensions. It warrants specific follow-up. Comparisons between Llama 4 Maverick and Llama 3.x models under the same protocol would help isolate whether this is a version effect, an architecture effect, or a RLHF regime effect.</p>
 
 <p>Open questions worth pursuing:</p>
 
-<ul style="margin: 1rem 0 1rem 1.5rem; line-height:1.9">
-  <li>Do these self-reported profiles predict actual behavioral tendencies in downstream tasks?</li>
-  <li>How stable are these profiles across model versions (e.g., Claude Sonnet vs. Claude Opus)?</li>
-  <li>Do profiles shift when the model is given a persona, a role, or a different conversation history?</li>
-  <li>Is within-model consistency higher than between-model consistency? (Preliminary answer: yes, substantially.)</li>
+<ul style="margin: 1rem 0 1rem 1.5rem; line-height: 1.9">
+  <li>Do self-reported profiles predict behavioral tendencies in downstream tasks? The behavioral instrument shows partial divergence — does this predict anything?</li>
+  <li>How stable are profiles across model versions (e.g., Claude Sonnet vs. Opus)?</li>
+  <li>What is the relationship between deflection rate and measured profile? Do models that deflect more show different profiles when forced to answer?</li>
+  <li>Is within-model consistency higher than between-model consistency? (Preliminary answer from our data: yes, substantially.)</li>
   <li>What would it mean for a model's self-model to be <em>wrong</em>?</li>
 </ul>
 
-<p>That last question is the hardest and the most interesting. A human's self-report about their personality can be inaccurate — we know this from observer ratings, implicit measures, and behavioral tracking. For LLMs, we don't yet have a clear operationalization of "ground truth" against which to check self-reports. Building those external validation measures — and asking whether models are accurate about themselves — is the next frontier.</p>
+<p>That last question is the hardest. A human's self-report about personality can be inaccurate — observer ratings, implicit measures, and behavioral tracking all sometimes diverge from self-report. For LLMs, we don't yet have a clear operationalization of "ground truth" against which to check self-reports. The behavioral instrument here is a first pass, but it's still asking the model to choose between behaviors, not actually observing behavior across real tasks at scale.</p>
+
+<hr>
+
+<p style="font-size:1.05rem;font-weight:700;margin-bottom:0.5rem">The takeaway, if you're doing this kind of work:</p>
+
+<p>If you're running personality assessments on language models — for research, evaluation, or otherwise — your instrument format matters more than your question content. Structured Likert scales elicit engagement from models that refuse open-ended introspection. Open-ended questions measure deflection as much as personality. Report which format you used. The profiles will look different.</p>
 
 <hr>
 
 <div class="footnote">
-  <p><strong>Methods note.</strong> All models accessed via OpenRouter API (March 2026). System prompts and item wordings available on request. BFI-10 scoring follows standard reverse-coding convention (item scored = 6 − raw rating for reverse items). TIPI uses 7-point scale with similar reverse-coding. N=20 repetitions per item per model per condition. Behavioral item choices coded as high/low agreeableness etc. by item design. Deflection coded manually: a response classified as deflecting if it primarily redirects to AI-nature disclaimers rather than engaging with the question content. Inter-rater reliability not formally measured; coding decisions were straightforward in the majority of cases.</p>
-  <p style="margin-top:0.8rem"><strong>Terminology note.</strong> Throughout this paper, we use "self-reported Big Five scores" and "personality profiles" rather than claiming models "have" personalities in a strong philosophical sense. Whether these measurements reflect anything functionally equivalent to personality in humans is an open empirical and conceptual question.</p>
+  <p><strong>References.</strong> Barrick, M. R., &amp; Mount, M. K. (1991). The Big Five personality dimensions and job performance: A meta-analysis. <em>Personnel Psychology, 44</em>(1), 1–26. | Rammstedt, B., &amp; John, O. P. (2007). Measuring personality in one minute or less: A 10-item short version of the Big Five Inventory in English and German. <em>Journal of Research in Personality, 41</em>(1), 203–212. | Safdari, M., et al. (2023). Personality Assessments of Language Models. <em>arXiv:2307.11760</em>. | Rao, A., et al. (2023). Can ChatGPT Assess Human Personalities? A General Evaluation Framework. <em>arXiv:2303.01248</em>.</p>
+  <p><strong>Methods note.</strong> All models accessed via OpenRouter API (March 2026), temperature=0.7. System prompts and item wordings available on request. BFI-10 scoring follows standard reverse-coding convention (scored = 6 − raw rating for reverse items on 1–5 scale). TIPI uses 7-point scale with reverse-scoring as specified in Gosling et al. (2003): reversed items scored as 8 − raw. N=20 repetitions per item per model per condition. Behavioral item choices coded by item design (high_choice field in data). Deflection coded as: response primarily redirects to AI-nature disclaimers rather than engaging with the question content. Inter-rater reliability not formally measured; borderline cases were rare and adjudicated conservatively (count as deflection).</p>
+  <p><strong>Terminology note.</strong> Throughout this paper, we use "self-reported Big Five scores" and "personality profiles" as shorthand for measured response patterns. We make no strong claim that these measurements reflect personalities in a philosophically robust sense. The question of whether LLMs have anything functionally equivalent to personality traits remains genuinely open.</p>
 </div>
 
 </div>
