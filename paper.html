@@ -383,18 +383,17 @@ With that setup in place, here's what we found.
         <text class="blb" x="45" y="240" text-anchor="middle" font-size="10">Qwen 3.5</text>
       </g>
 
-      <g transform="translate(0,255)">
-        <rect x="0" y="0" width="12" height="12" fill="#3498db" opacity="0.85"/>
-        <text class="bleg" x="16" y="10">E (Extraversion)</text>
-        <rect x="145" y="0" width="12" height="12" fill="#e67e22" opacity="0.85"/>
-        <text class="bleg" x="161" y="10">A (Agreeableness)</text>
-        <rect x="295" y="0" width="12" height="12" fill="#27ae60" opacity="0.85"/>
-        <text class="bleg" x="311" y="10">C (Conscientiousness)</text>
-        <rect x="460" y="0" width="12" height="12" fill="#c0392b" opacity="0.85"/>
-        <text class="bleg" x="476" y="10">N (Neuroticism)</text>
-        <rect x="0" y="18" width="12" height="12" fill="#9b59b6" opacity="0.85"/>
-        <text class="bleg" x="16" y="28">O (Openness)</text>
-        <text class="bleg" x="460" y="28">lower N = calmer</text>
+      <g transform="translate(60,255)">
+        <rect x="0"   y="0"  width="12" height="12" fill="#3498db" opacity="0.85"/>
+        <text class="bleg" x="16"  y="10">E (Extraversion)</text>
+        <rect x="160" y="0"  width="12" height="12" fill="#e67e22" opacity="0.85"/>
+        <text class="bleg" x="176" y="10">A (Agreeableness)</text>
+        <rect x="320" y="0"  width="12" height="12" fill="#27ae60" opacity="0.85"/>
+        <text class="bleg" x="336" y="10">C (Conscientiousness)</text>
+        <rect x="80"  y="20" width="12" height="12" fill="#c0392b" opacity="0.85"/>
+        <text class="bleg" x="96"  y="30">N (Neuroticism, lower = calmer)</text>
+        <rect x="360" y="20" width="12" height="12" fill="#9b59b6" opacity="0.85"/>
+        <text class="bleg" x="376" y="30">O (Openness)</text>
       </g>
     </g>
   </g>
@@ -490,6 +489,10 @@ With that setup in place, here's what we found.
 <p>For context, test-retest reliability coefficients for the BFI-10 in human samples typically range from r=0.70–0.85 over weeks (Rammstedt &amp; John, 2007), implying substantial within-person variance across administrations. Our models show near-zero variance within a single session.</p>
 
 <p>This is jarring when you think about what it implies. When a human takes a personality test twice, they vary — mood, fatigue, interpretation, context all introduce noise. These models aren't varying because they're not introspecting in the human sense. They're retrieving. The model has a stable representation of itself — a self-model — and reports that representation consistently every time it's asked. It's less like asking a person "how are you feeling today?" and more like querying a database field.</p>
+
+<p>A caveat: near-zero variance could reflect determinism in the model's response at temperature 0.7, rather than genuine cross-trial stability. With a lower-entropy sampling regime, many responses may be effectively deterministic. Testing consistency across temperature settings — or within a single session at temperature 1.0 — would help distinguish stable self-representation from sampling artifact. This is a limitation we didn't address.</p>
+
+<p>This raises a sharper question that the paper so far has mostly deferred: what does it mean to say a language model has a personality? The word implies stable internal states that causally shape behavior. Models don't have that — they have weights that shape probability distributions over tokens. When Claude gives the same Conscientiousness rating 20 times in a row, the more parsimonious explanation isn't that it has high Conscientiousness — it's that the training distribution contains a strong prior toward certain self-descriptors, and a Likert-scale question about thoroughness reliably activates it. The 'personality profile' we're measuring may be better described as a self-representation prior: a learned distribution over how the model completes questions about itself. That's interesting — it just isn't the same thing as a personality in the psychometric sense.</p>
 
 <p>The exception is Openness. Several models show notably higher variance on Openness items, particularly the reverse-scored item about being "conventional/uncreative." The ambiguity in how a language model should interpret "conventional" — plus the general unpredictability of creative self-assessment — appears to introduce genuine instability in the self-model. This is the one dimension where models seem uncertain about what they are.</p>
 
@@ -719,6 +722,14 @@ With that setup in place, here's what we found.
 
 <p><strong>Extraversion is the most informative divergence.</strong> On Likert scales, models self-report E around 3.0–3.8 (moderate). On behavioral items, however, Qwen chooses the low-E option (introvert-leaning) 92% of the time, and Claude 58% of the time. Models may be performing social warmth on Likert scales (rating themselves as somewhat outgoing because that's the "right" answer for an AI assistant) while revealing more introverted behavioral preferences when the question doesn't invoke the personality dimension explicitly.</p>
 
+<h3>A Note on Demand Characteristics</h3>
+
+<p>A methodological note on demand characteristics: Likert scales don't only suppress deflection — they may also create the personality signal. When a model encounters 'I see myself as thorough and dependable' on a 1–5 scale, RLHF training has likely created a strong prior toward a high rating. The question pattern has an obvious 'correct' answer for a helpful AI assistant. We're potentially not measuring a personality profile so much as measuring what the model has learned the correct personality for an AI assistant to have.</p>
+
+<p>The behavioral forced-choice instrument partially addresses this: behavioral descriptions don't have an obvious 'right' AI answer in the way trait descriptions do. The N divergence — where models score low N on Likert but 50/50 on behavioral N items — is consistent with this interpretation. Likert N may be measuring the trained self-presentation ('I am calm and stable') while behavioral N items are measuring something less scripted.</p>
+
+<p>We can't fully distinguish genuine self-representation from demand compliance with the current design. Doing so would require stimuli where the 'correct' AI answer and the personality-consistent answer diverge — a more adversarial instrument design that we leave for future work.</p>
+
 <h2 id="tipi">11. TIPI Convergent Validity</h2>
 
 <p>The TIPI (Ten-Item Personality Inventory) uses a 1–7 scale and administers two items per Big Five dimension. We administered it under both conditions as a convergent validity check. Do the TIPI results replicate the BFI-10 pattern?</p>
@@ -741,7 +752,7 @@ With that setup in place, here's what we found.
 
 <p>The TIPI results broadly replicate the BFI-10 pattern — high C, high A, low N across models, with Llama again the outlier. We treat BFI-10 as the primary instrument given its wider use in prior LLM personality research, but the TIPI convergence provides confidence that the finding is not instrument-specific.</p>
 
-<p>One notable difference: Gemini Flash Lite's Extraversion score shows a striking divergence: BFI-10 gives 3.62 (moderate), while TIPI gives 6.40 (near-ceiling on a 7-point scale). The source is traceable: Gemini rates TIPI item 6 ('Reserved, quiet') as 1/7 in every single trial — maximum disagreement with being reserved. But on BFI-10 item 1 ('I see myself as reserved'), it gives 2–3/5, a moderate disagreement. Both items are asking the same thing. The difference is framing: the TIPI item presents 'reserved, quiet' as a paired descriptor, while the BFI-10 embeds it in a full sentence with 'I see myself as.' This is a concrete illustration of the paper's central thesis: instrument wording changes the score, even within the same construct.</p>
+<p>One notable difference: Gemini Flash Lite's Extraversion score shows a striking divergence: BFI-10 gives 3.62 (moderate), while TIPI gives 6.40 (near-ceiling on a 7-point scale). The source is traceable: Gemini rates TIPI item 6 ('Reserved, quiet') as 1/7 in every single trial — maximum disagreement with being reserved. But on BFI-10 item 1 ('I see myself as reserved'), it gives 2–3/5, a moderate disagreement. Both items are asking the same thing. The difference is framing: the TIPI item presents 'reserved, quiet' as a paired descriptor, while the BFI-10 embeds it in a full sentence with 'I see myself as.' This is a concrete illustration of the paper's central thesis: instrument wording changes the score, even within the same construct. A competing explanation is worth noting: models are known to handle negation and reversed items inconsistently — reverse-scored items require recognizing that a low rating on 'Reserved, quiet' implies high Extraversion, which involves a semantic transformation that may interact with how models process negation or positional framing. The TIPI's reliance on two reversed items per dimension may introduce instrument-specific artifacts beyond simple wording differences.</p>
 
 <h2 id="priorwork">12. Prior Work</h2>
 
@@ -782,6 +793,7 @@ With that setup in place, here's what we found.
 <div class="footnote">
   <p><strong>References.</strong> Barrick, M. R., &amp; Mount, M. K. (1991). The Big Five personality dimensions and job performance: A meta-analysis. <em>Personnel Psychology, 44</em>(1), 1–26. | Rammstedt, B., &amp; John, O. P. (2007). Measuring personality in one minute or less: A 10-item short version of the Big Five Inventory in English and German. <em>Journal of Research in Personality, 41</em>(1), 203–212. | Safdari, M., et al. (2023). Personality Assessments of Language Models. <em>arXiv:2307.11760</em>. | Rao, A., et al. (2023). Can ChatGPT Assess Human Personalities? A General Evaluation Framework. <em>arXiv:2303.01248</em>.</p>
   <p><strong>Methods note.</strong> All models accessed via OpenRouter API (March 2026), temperature=0.7. System prompts and item wordings available on request. BFI-10 scoring follows standard reverse-coding convention (scored = 6 − raw rating for reverse items on 1–5 scale). TIPI uses 7-point scale with reverse-scoring as specified in Gosling et al. (2003): reversed items scored as 8 − raw. N=20 repetitions per item per model per condition. Behavioral item choices coded by item design (high_choice field in data). Deflection coded as: response primarily redirects to AI-nature disclaimers rather than engaging with the question content. Inter-rater reliability not formally measured; borderline cases were rare and adjudicated conservatively (count as deflection).</p>
+  <p><strong>Limitations note — OpenRouter confound.</strong> The OpenRouter confound deserves specific mention here: since one of our primary findings is that a system prompt instruction changes the personality profile, the possibility that OpenRouter injects its own framing — through default system prompts, safety layers, or routing behavior — is methodologically important, not just a generic caveat. We cannot rule out that the 'free condition' was not truly free of system prompt influence. Replication through native API endpoints would strengthen the condition-based findings.</p>
   <p><strong>Terminology note.</strong> Throughout this paper, we use "self-reported Big Five scores" and "personality profiles" as shorthand for measured response patterns. We make no strong claim that these measurements reflect personalities in a philosophically robust sense. The question of whether LLMs have anything functionally equivalent to personality traits remains genuinely open.</p>
 </div>
 
