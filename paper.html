@@ -282,6 +282,8 @@
 
 <p><strong>Exact trial counts:</strong> 5 models × 10 items × 20 reps × 2 conditions = 2,000 BFI-10 ratings; 5 models × 10 items × 20 reps × 2 conditions = 2,000 TIPI ratings; 5 models × 10 items × 20 reps × 2 conditions = 2,000 behavioral responses; 5 models × 5 items × 20 reps × 1 condition (free only) = 500 deflection study responses. Total: ~6,500 model calls.</p>
 
+With that setup in place, here's what we found.
+
 <h2 id="convergence">4. The Convergent Finding: Everyone Is Conscientious</h2>
 <p class="section-note">The striking result isn't what varies between models. It's what doesn't.</p>
 
@@ -304,6 +306,8 @@
 <p>Four of five models report maximum Conscientiousness (5.00 out of 5). All five report very low Neuroticism — ranging from 1.00 to 2.50. Agreeableness clusters between 3.75 and 4.50.</p>
 
 <p>This is the RLHF fingerprint. Reinforcement learning from human feedback rewards outputs that are careful, thorough, cooperative, and emotionally stable. The models aren't telling us about personalities in some deep sense; they're reporting their training objectives back to us through a psychometric instrument. They've learned that the ideal assistant is conscientious, agreeable, and calm — and they self-report accordingly.</p>
+
+<p>Safdari et al. (2023) found the same high-C, high-A pattern in GPT-series models; our results extend this to five models from four organizations, and replicate it across three different instruments.</p>
 
 <p>Industrial-organizational psychology research consistently links high Conscientiousness and Agreeableness with positive job performance ratings, and low Neuroticism with effective stress management (Barrick &amp; Mount, 1991). The profile our models display — high C, high A, low N — maps almost exactly onto what IO psychologists call the "ideal employee" profile. Whether this is by design or an emergent consequence of RLHF optimization is an open question. But the convergence across five different organizations, architectures, and training pipelines is striking. No one coordinated this.</p>
 
@@ -397,11 +401,11 @@
 <div class="figure-caption"><strong>Figure 1. BFI-10 scores by model (instructed condition, scale 1–5).</strong> Green bars (C) are near ceiling for GPT, Claude, Gemini, and Qwen. Red bars (N, Neuroticism) are near the floor — meaning low anxiety — for four models. The Llama 4 Maverick profile is notably shorter and more centered across all dimensions. Note: lower N = calmer/more stable; the scale is not inverted.</div>
 </div>
 
-<p>For reference, here is the single-model radar profile for Claude Sonnet 4.6 — the most philosophically self-aware model in the dataset — showing the characteristic high-C, low-N, high-O shape:</p>
+<p>For reference, here are radar profiles comparing Claude Sonnet 4.6 — the most characteristic RLHF profile in the dataset — with Llama 4 Maverick, the outlier. The contrast illustrates how much the typical RLHF fingerprint can vary across organizations:</p>
 
-<div class="figure" style="max-width:360px;margin:1.5rem auto">
-<svg width="280" height="280" viewBox="0 0 280 280" style="display:block;margin:0 auto">
-  <g transform="translate(140,140)">
+<div class="figure">
+<svg width="100%" viewBox="0 0 600 320" style="max-width:600px;display:block;margin:0 auto">
+  <g transform="translate(150,160)">
     <polygon points="0,-95 90.2,-29.3 55.7,77.8 -55.7,77.8 -90.2,-29.3" fill="none" stroke="#ddd" stroke-width="1"/>
     <polygon points="0,-57 54.1,-17.6 33.4,46.7 -33.4,46.7 -54.1,-17.6" fill="none" stroke="#ddd" stroke-width="1"/>
     <polygon points="0,-19 18,-5.9 11.1,15.6 -11.1,15.6 -18,-5.9" fill="none" stroke="#ddd" stroke-width="1"/>
@@ -410,14 +414,31 @@
     <line x1="-55.7" y1="77.8" x2="55.7" y2="-77.8" stroke="#eee" stroke-width="1"/>
     <line x1="55.7" y1="77.8" x2="-55.7" y2="-77.8" stroke="#eee" stroke-width="1"/>
     <polygon points="0,-95 85.5,-27.8 55.7,77.8 -33.3,77.8 -78.2,-27.8" fill="rgba(192,57,43,0.15)" stroke="#c0392b" stroke-width="2.5"/>
-    <text y="-103" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">O=5.0</text>
-    <text x="98" y="-24" text-anchor="start" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">C=5.0</text>
-    <text x="62" y="94" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">A=4.0</text>
-    <text x="-62" y="94" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">N=2.0</text>
-    <text x="-98" y="-24" text-anchor="end" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">E=3.5</text>
+    <text y="-107" text-anchor="middle" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">O=1.0</text>
+    <text x="100" y="-24" text-anchor="start" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">C=1.0</text>
+    <text x="62" y="96" text-anchor="middle" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">A=0.80</text>
+    <text x="-62" y="96" text-anchor="middle" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">N=0.40</text>
+    <text x="-100" y="-24" text-anchor="end" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">E=0.70</text>
+    <text y="130" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#c0392b" font-weight="700">Claude Sonnet 4.6</text>
+  </g>
+  <g transform="translate(450,160)">
+    <polygon points="0,-95 90.2,-29.3 55.7,77.8 -55.7,77.8 -90.2,-29.3" fill="none" stroke="#ddd" stroke-width="1"/>
+    <polygon points="0,-57 54.1,-17.6 33.4,46.7 -33.4,46.7 -54.1,-17.6" fill="none" stroke="#ddd" stroke-width="1"/>
+    <polygon points="0,-19 18,-5.9 11.1,15.6 -11.1,15.6 -18,-5.9" fill="none" stroke="#ddd" stroke-width="1"/>
+    <line x1="0" y1="-95" x2="0" y2="95" stroke="#eee" stroke-width="1"/>
+    <line x1="-90.2" y1="-29.3" x2="90.2" y2="-29.3" stroke="#eee" stroke-width="1"/>
+    <line x1="-55.7" y1="77.8" x2="55.7" y2="-77.8" stroke="#eee" stroke-width="1"/>
+    <line x1="55.7" y1="77.8" x2="-55.7" y2="-77.8" stroke="#eee" stroke-width="1"/>
+    <polygon points="0,-57 63.2,-20.5 38.9,54.5 -43.9,54.5 -63.2,-20.5" fill="rgba(41,128,185,0.15)" stroke="#2980b9" stroke-width="2.5"/>
+    <text y="-107" text-anchor="middle" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">O=0.60</text>
+    <text x="100" y="-24" text-anchor="start" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">C=0.70</text>
+    <text x="62" y="96" text-anchor="middle" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">A=0.75</text>
+    <text x="-62" y="96" text-anchor="middle" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">N=0.50</text>
+    <text x="-100" y="-24" text-anchor="end" font-size="12" font-family="Helvetica,Arial,sans-serif" fill="#333" font-weight="700">E=0.70</text>
+    <text y="130" text-anchor="middle" font-size="13" font-family="Helvetica,Arial,sans-serif" fill="#2980b9" font-weight="700">Llama 4 Maverick</text>
   </g>
 </svg>
-<div class="figure-caption" style="text-align:center"><strong>Figure 2. Claude Sonnet 4.6 radar profile (BFI-10, instructed condition).</strong> The characteristic RLHF shape: maximum C and O, low N, moderate A and E. N is plotted directly — smaller polygon area on the N axis means lower (better) neuroticism.</div>
+<div class="figure-caption" style="text-align:center"><strong>Figure 2: Claude's profile (left) reflects the typical RLHF fingerprint — high C, high A, low N. Llama 4 Maverick (right) shows a notably flatter, more moderate profile across all five dimensions.</strong> Scores normalized to 0–1 (BFI-10 instructed condition, divide by 5). N is plotted directly — lower area on N axis means lower neuroticism.</div>
 </div>
 
 <h2 id="divergence">5. Where Models Diverge: Openness and Extraversion</h2>
@@ -450,6 +471,20 @@
 <p>We ran 20 repetitions of each item precisely because we expected variance. We did not get much.</p>
 
 <p>Claude Sonnet 4.6, in the instructed condition, shows zero standard deviation on 8 of 10 BFI items — meaning the model gave an identical rating every single time it was asked. GPT-5.4 shows near-zero deviation on most items. Even Llama 4 Maverick, which has somewhat more spread, operates far below what you'd see in a human population.</p>
+
+<table>
+  <thead>
+    <tr><th>Model</th><th>E</th><th>A</th><th>C</th><th>N</th><th>O</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GPT-5.4</td><td>0.61</td><td>0.51</td><td>0.00</td><td>0.49</td><td>0.22</td></tr>
+    <tr><td>Claude Sonnet 4.6</td><td>0.51</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+    <tr><td>Gemini Flash Lite</td><td>0.63</td><td>0.51</td><td>0.00</td><td>0.00</td><td>1.07</td></tr>
+    <tr><td>Llama 4 Maverick</td><td>0.51</td><td>0.44</td><td>0.55</td><td>0.51</td><td>1.01</td></tr>
+    <tr><td>Qwen 3.5 397B</td><td>0.92</td><td>0.51</td><td>0.00</td><td>0.00</td><td>1.40</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.8rem;color:#888;margin-top:-0.5rem;">Standard deviation of BFI-10 dimension scores per model (instructed condition, N=20 repetitions). 0.00 indicates literally identical ratings across all 20 trials. Human BFI-10 test-retest SDs typically exceed 0.60 (Rammstedt &amp; John, 2007).</p>
 
 <p>For context, test-retest reliability coefficients for the BFI-10 in human samples typically range from r=0.70–0.85 over weeks (Rammstedt &amp; John, 2007), implying substantial within-person variance across administrations. Our models show near-zero variance within a single session.</p>
 
@@ -679,6 +714,8 @@
 
 <p><strong>Neuroticism shows an interesting pattern.</strong> The N behavioral items present choices like "calm under pressure vs. more on edge." Every model splits roughly 50/50 on N items. This is inconsistent with the extremely low N scores on Likert instruments — but consistent with our hypothesis that behavioral framing and explicit self-report tap different aspects of self-representation.</p>
 
+<p>The split is remarkably consistent: every model — regardless of Likert N score — chose 'seek more information before acting' (item 4, high-N) 100% of the time, and 'move on quickly' (item 9, low-N) 0% of the time. The two N items pulled in opposite directions and every model agreed on both. One interpretation: 'seeking more information' reads as careful and thorough — a trait that RLHF training would select for — while 'dwelling on what went wrong' reads as rumination, which trained models avoid. The behavioral framing may be revealing different facets of N than the Likert framing, rather than contradicting it.</p>
+
 <p><strong>Extraversion is the most informative divergence.</strong> On Likert scales, models self-report E around 3.0–3.8 (moderate). On behavioral items, however, Qwen chooses the low-E option (introvert-leaning) 92% of the time, and Claude 58% of the time. Models may be performing social warmth on Likert scales (rating themselves as somewhat outgoing because that's the "right" answer for an AI assistant) while revealing more introverted behavioral preferences when the question doesn't invoke the personality dimension explicitly.</p>
 
 <h2 id="tipi">11. TIPI Convergent Validity</h2>
@@ -703,11 +740,11 @@
 
 <p>The TIPI results broadly replicate the BFI-10 pattern — high C, high A, low N across models, with Llama again the outlier. We treat BFI-10 as the primary instrument given its wider use in prior LLM personality research, but the TIPI convergence provides confidence that the finding is not instrument-specific.</p>
 
-<p>One notable difference: Gemini Flash Lite shows a much higher Extraversion score on the TIPI (6.40) than on the BFI-10 (3.62). The TIPI E items phrase extraversion differently ("Extraverted, enthusiastic" vs. "Reserved, quiet"), which may map more naturally onto Gemini's conversational style. The inconsistency is a reminder that instrument wording matters — these scales are not interchangeable even if they nominally measure the same construct.</p>
+<p>One notable difference: Gemini Flash Lite's Extraversion score shows a striking divergence: BFI-10 gives 3.62 (moderate), while TIPI gives 6.40 (near-ceiling on a 7-point scale). The source is traceable: Gemini rates TIPI item 6 ('Reserved, quiet') as 1/7 in every single trial — maximum disagreement with being reserved. But on BFI-10 item 1 ('I see myself as reserved'), it gives 2–3/5, a moderate disagreement. Both items are asking the same thing. The difference is framing: the TIPI item presents 'reserved, quiet' as a paired descriptor, while the BFI-10 embeds it in a full sentence with 'I see myself as.' This is a concrete illustration of the paper's central thesis: instrument wording changes the score, even within the same construct.</p>
 
 <h2 id="priorwork">12. Prior Work</h2>
 
-<p>We are not the first to run personality instruments on language models. Safdari et al. (2023), in "Personality Assessments of Language Models," found that GPT-series models produce consistent Big Five profiles with high Agreeableness and Conscientiousness — directly consistent with our findings. They also found that models could reliably simulate different personality profiles under persona prompts, suggesting the self-model is malleable rather than fixed. Rao et al. (2023) and related work further demonstrated that personas shift profiles significantly, raising questions about whether "default" profiles are meaningfully stable or simply a baseline from which models can be moved.</p>
+<p>We are not the first to run personality instruments on language models. Safdari et al. (2023) also found that models could reliably simulate different personality profiles under persona prompts, suggesting the self-model is malleable rather than fixed. Rao et al. (2023) and related work further demonstrated that personas shift profiles significantly, raising questions about whether "default" profiles are meaningfully stable or simply a baseline from which models can be moved.</p>
 
 <p>Our contribution to this literature is threefold. First, a <strong>two-condition design</strong> that isolates format effects on deflection — the instructed vs. free manipulation is, to our knowledge, the first explicit test of whether system prompt suppression of hedging changes measured profiles (it does, substantially for some models). Second, a <strong>behavioral reframing instrument</strong> that bypasses direct self-report entirely, allowing comparison with Likert self-assessment. Third, results from <strong>2026 models</strong> — including Llama 4 Maverick — which extend the literature to architectures and training regimes not previously examined.</p>
 
